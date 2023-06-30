@@ -1,4 +1,5 @@
-using MealPlan.Contexts;
+using MealPlan.Application.Identity.Queries.Login;
+using MealPlan.Database.Contexts;
 using MealPlan.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(typeof(LoginRequest).Assembly));
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MealPlanContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("MealPlanConnection")));
