@@ -1,10 +1,35 @@
+using MealPlan.Contexts;
+using MealPlan.Models.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<MealPlanContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("MealPlanConnection")));
+builder.Services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<MealPlanContext>();
 
 var app = builder.Build();
+
+// Add a default user
+using (var defaultUserScope = app.Services.CreateScope())
+{
+    var userManager = defaultUserScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var admin = await userManager.FindByNameAsync("admin");
+    if (admin == null)
+    {
+        admin = new ApplicationUser
+        {
+            UserName = "admin",
+            Email = "admin@dashwood.world",
+            EmailConfirmed = true,
+        };
+        var result = await userManager.CreateAsync(admin, "Pa$$w0rd");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
