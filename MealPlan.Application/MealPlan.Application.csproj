@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.21.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MealPlan.Models\MealPlan.Models.csproj" />
   </ItemGroup>
 
 </Project>

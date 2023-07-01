@@ -14,7 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MealPlanContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("MealPlanConnection")));
-builder.Services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<MealPlanContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>()
+    .AddRoles<ApplicationRole>()
+    .AddEntityFrameworkStores<MealPlanContext>();
 
 var app = builder.Build();
 
