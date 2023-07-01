@@ -57,21 +57,7 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 var app = builder.Build();
 
 // Add a default user
-using (var defaultUserScope = app.Services.CreateScope())
-{
-    var userManager = defaultUserScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    var admin = await userManager.FindByNameAsync("admin");
-    if (admin == null)
-    {
-        admin = new ApplicationUser
-        {
-            UserName = "admin",
-            Email = "admin@dashwood.world",
-            EmailConfirmed = true,
-        };
-        var result = await userManager.CreateAsync(admin, "Pa$$w0rd");
-    }
-}
+await app.AddAdminUser();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

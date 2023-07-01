@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using MealPlan.Models.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 
@@ -6,6 +9,46 @@ namespace MealPlan;
 
 public static class Authentication
 {
+    public static async Task AddAdminUser(this WebApplication app)
+    {
+        using (var defaultUserScope = app.Services.CreateScope())
+        {
+            var roleManager = defaultUserScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var userManager = defaultUserScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            var adminRole = await roleManager.FindByNameAsync("admin");
+            if (adminRole == null)
+            {
+                adminRole = new ApplicationRole { Name = "admin" };
+                var result = await roleManager.CreateAsync(adminRole);
+                ThrowIfFail(result, "create admin role");
+            }
+
+            var adminUser = await userManager.FindByNameAsync("admin");
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser
+                {
+                    UserName = "admin",
+                    Email = "admin@dashwood.world",
+                    EmailConfirmed = true,
+                };
+                var result = await userManager.CreateAsync(adminUser, "Pa$$w0rd");
+                ThrowIfFail(result, "create admin user");
+                result = await userManager.AddToRoleAsync(adminUser, "admin");
+                ThrowIfFail(result, "asign admin role to admin user");
+            }
+        }
+    }
+
+    private static void ThrowIfFail(IdentityResult identityResult, string taskDescription)
+    {
+        if (!identityResult.Succeeded)
+        {
+            throw new ApplicationException($"Failed to {taskDescription}: {string.Join(", ", identityResult.Errors.Select(e => e.Description))}");
+        }
+    }
+
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration _configuration)
     {
         var publicKey = _configuration["Jwt:PublicKey"];
