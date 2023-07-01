@@ -18,11 +18,15 @@ namespace MealPlan.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<LoginResponse>> Login(LoginDto dto)
+        public async Task<ActionResult<string>> Login(LoginDto dto)
         {
             var request = new LoginRequest(dto.UserName, dto.Password);
             var result = await _mediator.Send(request);
-            return result;
+            if (result.Success)
+            {
+                return result.Jwt!;
+            }
+            return Unauthorized();
         }
     }
 }

@@ -39,10 +39,10 @@ public class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
             }
 
             var token = GetToken(authClaims);
-            return new LoginResponse { Success = true, Jwt = token };
+            return LoginResponse.CreateSuccessResponse(token);
         }
 
-        return new LoginResponse { Success = false };
+        return LoginResponse.CreateFailureResponse();
     }
 
     private string GetToken(List<Claim> authClaims)
