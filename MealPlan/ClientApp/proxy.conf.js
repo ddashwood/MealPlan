@@ -13,7 +13,26 @@ const PROXY_CONFIG = [
     headers: {
       Connection: 'Keep-Alive'
     }
-  }
-]
+  },
+  {
+    context: [
+      "/swagger/**",
+    ],
+    target: target,
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
+  },
+  {
+    context: [
+      "/api/**",
+    ],
+    target: target,
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
+  }]
 
 module.exports = PROXY_CONFIG;
