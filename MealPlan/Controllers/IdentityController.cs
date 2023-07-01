@@ -17,7 +17,7 @@ namespace MealPlan.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<ActionResult<LoginResponse>> Login(LoginDto dto)
         {
             var request = new LoginRequest(dto.UserName, dto.Password);
