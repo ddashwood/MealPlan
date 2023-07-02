@@ -11,11 +11,25 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ApiModule, Configuration, ConfigurationParameters } from 'src/libs/api-client';
 import { getBaseUrl } from 'src/main';
+import { LoginComponent } from './login/login.component';
+
+function getOpenApiBaseUrl() : string {
+  let url = getBaseUrl();
+  if (url.endsWith("/")) {
+    // Open API needs the trailing / removed
+    url = url.slice(0, -1);
+  }
+
+  return url;
+}
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
-    basePath: getBaseUrl()
-  }
+    basePath: getOpenApiBaseUrl()
+  };
+  let credentials: {[ key: string ]: string | (() => string | undefined)} = { };
+  credentials["Bearer"] = () => "Bearer " + credentials["Token"];
+  params.credentials = credentials;
   return new Configuration(params);
 }
 
@@ -25,7 +39,8 @@ export function apiConfigFactory (): Configuration {
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    LoginComponent
   ],
   imports: [
     ApiModule.forRoot(apiConfigFactory),
@@ -36,6 +51,7 @@ export function apiConfigFactory (): Configuration {
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'login', component: LoginComponent },
     ])
   ],
   providers: [],

@@ -1,0 +1,14 @@
+<form>
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input class="form-control" id="username" name="username" [(ngModel)]="loginDetails.userName" />
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="loginDetails.password" />
+    </div>
+    <div class="mb-3 text-danger">
+        {{errorMessage}}
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="onLogin()">Login</button>
+</form>
