@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Configuration, IdentityService, LoginDto } from 'src/libs/api-client';
+import { IdentityService, LoginDto } from 'src/libs/api-client';
+import { JWTTokenService } from '../services/jwt-token-service/jwttoken.service';
 
 @Component({
   selector: 'app-login',
@@ -8,19 +9,16 @@ import { Configuration, IdentityService, LoginDto } from 'src/libs/api-client';
   styleUrls: ['./login.component.css']
 })  
 export class LoginComponent {
-  constructor(private identityService: IdentityService, private configuration: Configuration, private router: Router) {
+  constructor(private identityService: IdentityService, private authService: JWTTokenService, private router: Router) {
   }
 
   loginDetails: LoginDto = <LoginDto>{};
   errorMessage: string | null = null;
 
   onLogin() {
-    console.log(this.loginDetails.userName);
-    console.log(this.loginDetails.password);
-
     this.identityService.apiIdentityLoginPost(this.loginDetails)
       .subscribe({ next: results => {
-        this.configuration.credentials["Token"] = results;
+        this.authService.setToken(results);
         this.router.navigate(['/']);
       }, error: error => {
         console.log(error);

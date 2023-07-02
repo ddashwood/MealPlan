@@ -17,8 +17,11 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!loggedIn">
             <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn">
+            <a class="nav-link text-dark" href="javascript:void(0);" (click)="logout()">Logout {{userName}}</a>
           </li>
         </ul>
       </div>

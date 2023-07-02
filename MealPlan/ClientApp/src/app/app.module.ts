@@ -9,9 +9,10 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { ApiModule, Configuration, ConfigurationParameters } from 'src/libs/api-client';
+import { Configuration, ConfigurationParameters } from 'src/libs/api-client';
 import { getBaseUrl } from 'src/main';
 import { LoginComponent } from './login/login.component';
+import { JWTTokenService } from './services/jwt-token-service/jwttoken.service';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -23,13 +24,13 @@ function getOpenApiBaseUrl() : string {
   return url;
 }
 
-export function apiConfigFactory (): Configuration {
+export function apiConfigFactory (authService: JWTTokenService): Configuration {
   const params: ConfigurationParameters = {
-    basePath: getOpenApiBaseUrl()
+    basePath: getOpenApiBaseUrl(),
+    credentials: {
+      "Bearer": () => "Bearer " + authService.jwtToken
+    }
   };
-  let credentials: {[ key: string ]: string | (() => string | undefined)} = { };
-  credentials["Bearer"] = () => "Bearer " + credentials["Token"];
-  params.credentials = credentials;
   return new Configuration(params);
 }
 
@@ -43,7 +44,6 @@ export function apiConfigFactory (): Configuration {
     LoginComponent
   ],
   imports: [
-    ApiModule.forRoot(apiConfigFactory),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -54,7 +54,14 @@ export function apiConfigFactory (): Configuration {
       { path: 'login', component: LoginComponent },
     ])
   ],
-  providers: [],
+  providers: [
+    {
+      provide: Configuration,
+      useFactory: (authService: JWTTokenService) => apiConfigFactory(authService),
+      deps: [JWTTokenService],
+      multi: false
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

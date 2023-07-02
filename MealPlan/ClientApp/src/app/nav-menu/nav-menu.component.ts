@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { JWTTokenService } from '../services/jwt-token-service/jwttoken.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -6,6 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  constructor(private authService: JWTTokenService, private router: Router) {
+    this.userName = authService.getUserName();
+    authService.updated$.subscribe(() => this.getUserDetails(authService));
+  }
+
+  loggedIn: boolean = false;
+  userName: string | null = null;
   isExpanded = false;
 
   collapse() {
@@ -14,5 +23,15 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  logout() {
+    this.authService.clearToken();
+  }
+
+  private getUserDetails(authService: JWTTokenService) {
+    this.loggedIn = !!authService.jwtToken;
+    this.userName = authService.getUserName();
+    this.router.navigate(["/"]);
   }
 }
