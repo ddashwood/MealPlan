@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { Configuration, ConfigurationParameters } from 'src/libs/api-client';
 import { getBaseUrl } from 'src/main';
 import { LoginComponent } from './login/login.component';
 import { JWTTokenService } from './services/jwt-token-service/jwttoken.service';
+import { UnauthorisedInterceptor } from './UnauthorisedInterceptor';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -60,6 +61,11 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
       useFactory: (authService: JWTTokenService) => apiConfigFactory(authService),
       deps: [JWTTokenService],
       multi: false
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorisedInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

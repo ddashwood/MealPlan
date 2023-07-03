@@ -1,4 +1,5 @@
-﻿using MealPlan.Models.Identity;
+﻿using MealPlan.Models.Configuration;
+using MealPlan.Models.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -12,12 +13,13 @@ namespace MealPlan.Application.Identity.Queries.Login;
 public class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IConfiguration _configuration;
+    private readonly JwtConfiguration _options;
 
     public LoginHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration)
     {
         _userManager = userManager;
-        _configuration = configuration;
+        _options = new JwtConfiguration();
+        configuration.GetSection("Jwt").Bind(_options);
     }
 
     public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
@@ -48,7 +50,7 @@ public class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
     private string GetToken(List<Claim> authClaims)
     {
         string result;
-        var privateKey = _configuration["Jwt:PrivateKey"];
+        var privateKey = _options.PrivateKey;
         if (privateKey == null)
         {
             throw new InvalidOperationException("Missing configuration: Jwt:PrivateKey");
@@ -70,9 +72,9 @@ public class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
             };
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
+                issuer: _options.ValidIssuer,
+                audience: _options.ValidAudience,
+                expires: DateTime.Now.AddHours(_options.ValidForHours),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.RsaSha256)
                 );

@@ -14,8 +14,15 @@ export class JWTTokenService {
     this.setToken(storage.get("token"))
   }
 
-  setToken(token: string | null) {
+  setToken(token: string | null) {  
     if (token) {
+      let decoded = (jwt_decode(token) as any);
+      var exp = new Date(decoded['exp'] * 1000);
+      if (exp < new Date()) {
+        // The previous token has already expired
+        return;
+      }
+
       this.jwtToken = token;
       this.storage.set("token", token);
       this.updated$.next(undefined);

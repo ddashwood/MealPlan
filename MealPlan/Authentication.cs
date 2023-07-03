@@ -1,7 +1,9 @@
-﻿using MealPlan.Models.Identity;
+﻿using MealPlan.Models.Configuration;
+using MealPlan.Models.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 
@@ -49,9 +51,12 @@ public static class Authentication
         }
     }
 
-    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration _configuration)
+    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        var publicKey = _configuration["Jwt:PublicKey"];
+        var jwtOptions = new JwtConfiguration();
+        configuration.GetSection("Jwt").Bind(jwtOptions);
+
+        var publicKey = jwtOptions.PublicKey;
         if (publicKey == null)
         {
             throw new InvalidOperationException("Missing configuration: Jwt:PublicKey");
@@ -81,8 +86,8 @@ public static class Authentication
             {
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                ValidAudience = _configuration["JWT:ValidAudience"],
-                ValidIssuer = _configuration["JWT:ValidIssuer"],
+                ValidAudience = jwtOptions.ValidAudience,
+                ValidIssuer = jwtOptions.ValidIssuer,
                 IssuerSigningKey = rsaKey
             };
         });
