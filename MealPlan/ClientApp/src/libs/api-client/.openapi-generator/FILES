@@ -4,13 +4,11 @@ README.md
 api.module.ts
 api/api.ts
 api/identity.service.ts
-api/weatherForecast.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
 model/loginDto.ts
 model/models.ts
-model/weatherForecast.ts
 param.ts
 variables.ts
