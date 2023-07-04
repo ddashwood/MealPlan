@@ -7,14 +7,13 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { Configuration, ConfigurationParameters } from 'src/libs/api-client';
 import { getBaseUrl } from 'src/main';
 import { LoginComponent } from './login/login.component';
 import { JWTTokenService } from './services/jwt-token-service/jwttoken.service';
 import { UnauthorisedInterceptor } from './authorisation/unauthorised-interceptor';
 import { ViewerRouteGuard } from './authorisation/viewer-route-guard';
+import { MealPlanComponent } from './meal-plan/meal-plan.component';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -41,9 +40,8 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    LoginComponent
+    LoginComponent,
+    MealPlanComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -51,8 +49,7 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [ViewerRouteGuard] },
+      { path: 'mealplan', component: MealPlanComponent, canActivate: [ViewerRouteGuard] },
       { path: 'login', component: LoginComponent },
     ])
   ],
