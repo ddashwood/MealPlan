@@ -52,6 +52,53 @@
           }
         }
       }
+    },
+    "/api/MealPlan": {
+      "get": {
+        "tags": [
+          "MealPlan"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealPlanDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealPlanDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealPlanDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -68,6 +115,10 @@
             "nullable": true
           }
         },
+        "additionalProperties": false
+      },
+      "MealPlanDto": {
+        "type": "object",
         "additionalProperties": false
       }
     },

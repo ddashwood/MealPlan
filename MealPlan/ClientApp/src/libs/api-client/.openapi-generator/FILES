@@ -4,6 +4,7 @@ README.md
 api.module.ts
 api/api.ts
 api/identity.service.ts
+api/mealPlan.service.ts
 configuration.ts
 encoder.ts
 git_push.sh

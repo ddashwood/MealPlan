@@ -21,7 +21,6 @@ export class LoginComponent {
         this.authService.setToken(results);
         this.router.navigate(['/']);
       }, error: error => {
-        console.log(error);
         if(error.status == 401) {
           this.errorMessage = "The username/password is not correct";
         } else {

@@ -2,7 +2,6 @@ using MealPlan;
 using MealPlan.Application.Identity.Queries.Login;
 using MealPlan.Database.Contexts;
 using MealPlan.Models.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 

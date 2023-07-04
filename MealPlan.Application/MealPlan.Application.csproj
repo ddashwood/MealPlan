@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MealPlan.Database\MealPlan.Database.csproj" />
     <ProjectReference Include="..\MealPlan.Models\MealPlan.Models.csproj" />
   </ItemGroup>
 

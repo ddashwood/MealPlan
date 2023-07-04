@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 
 namespace MealPlan.Application.Identity.Queries.Login;
 
-public class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
+internal class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly JwtConfiguration _options;
