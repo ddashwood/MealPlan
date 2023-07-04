@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddAutoMapper(typeof(StartupAutoMapper).Assembly);
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(typeof(LoginRequest).Assembly));
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();

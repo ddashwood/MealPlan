@@ -82,17 +82,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MealPlanDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MealPlanDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MealPlanDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MealPlanDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MealPlanDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MealPlanDto"
+                  }
                 }
               }
             }
@@ -103,6 +112,32 @@
   },
   "components": {
     "schemas": {
+      "LocationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "foregroundColour": {
+            "type": "string",
+            "nullable": true
+          },
+          "backgroundColour": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginDto": {
         "type": "object",
         "properties": {
@@ -119,6 +154,52 @@
       },
       "MealPlanDto": {
         "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "mealDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationDto"
+          },
+          "people": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "foregroundColour": {
+            "type": "string",
+            "nullable": true
+          },
+          "backgroundColour": {
+            "type": "string",
+            "nullable": true
+          }
+        },
         "additionalProperties": false
       }
     },

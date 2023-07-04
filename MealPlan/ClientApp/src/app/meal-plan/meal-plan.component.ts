@@ -12,7 +12,10 @@ export class MealPlanComponent implements OnInit {
   ngOnInit(): void {
     var today = new Date();
     var end = this.addDays(today, 7); // Start off with 1 week's data
-    this.mealPlanService.apiMealPlanGet(this.dateToString(today), this.dateToString(end)).subscribe(() => {});
+    this.mealPlanService.apiMealPlanGet(this.dateToString(today), this.dateToString(end))
+      .subscribe((meals) => {
+        
+      });
   }
 
   private addDays(date: Date, days: number) {
