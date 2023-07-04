@@ -13,7 +13,8 @@ import { Configuration, ConfigurationParameters } from 'src/libs/api-client';
 import { getBaseUrl } from 'src/main';
 import { LoginComponent } from './login/login.component';
 import { JWTTokenService } from './services/jwt-token-service/jwttoken.service';
-import { UnauthorisedInterceptor } from './UnauthorisedInterceptor';
+import { UnauthorisedInterceptor } from './authorisation/unauthorised-interceptor';
+import { ViewerRouteGuard } from './authorisation/viewer-route-guard';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -51,7 +52,7 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'fetch-data', component: FetchDataComponent, canActivate: [ViewerRouteGuard] },
       { path: 'login', component: LoginComponent },
     ])
   ],
@@ -66,7 +67,8 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
       provide: HTTP_INTERCEPTORS,
       useClass: UnauthorisedInterceptor,
       multi: true
-    }
+    },
+    ViewerRouteGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -42,4 +42,17 @@ export class JWTTokenService {
     let decoded = (jwt_decode(this.jwtToken) as any);
     return decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
   }
+
+  userIsInRole(roleName: string) : boolean {
+    if (!this.jwtToken) {
+      return false;
+    }
+    
+    let decoded = (jwt_decode(this.jwtToken) as any);
+    return decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"].includes(roleName)
+  }
+
+  userCanView() : boolean {
+    return this.userIsInRole('viewer') || this.userIsInRole('editor');
+  }
 }

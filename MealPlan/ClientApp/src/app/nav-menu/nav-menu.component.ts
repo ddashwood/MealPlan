@@ -14,6 +14,7 @@ export class NavMenuComponent {
   }
 
   loggedIn: boolean = false;
+  isViewer: boolean = false;
   userName: string | null = null;
   isExpanded = false;
 
@@ -31,6 +32,7 @@ export class NavMenuComponent {
 
   private getUserDetails(authService: JWTTokenService) {
     this.loggedIn = !!authService.jwtToken;
+    this.isViewer = authService.userCanView();
     this.userName = authService.getUserName();
     this.router.navigate(["/"]);
   }

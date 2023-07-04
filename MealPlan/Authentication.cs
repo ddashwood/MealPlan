@@ -1,9 +1,7 @@
 ﻿using MealPlan.Models.Configuration;
 using MealPlan.Models.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 
@@ -26,6 +24,22 @@ public static class Authentication
                 ThrowIfFail(result, "create admin role");
             }
 
+            var viewerRole = await roleManager.FindByNameAsync("viewer");
+            if (viewerRole == null)
+            {
+                viewerRole = new ApplicationRole { Name = "viewer" };
+                var result = await roleManager.CreateAsync(viewerRole);
+                ThrowIfFail(result, "create viewer role");
+            }
+
+            var editorRole = await roleManager.FindByNameAsync("editor");
+            if (editorRole == null)
+            {
+                editorRole = new ApplicationRole { Name = "editor" };
+                var result = await roleManager.CreateAsync(editorRole);
+                ThrowIfFail(result, "create editor role");
+            }
+
             var adminUser = await userManager.FindByNameAsync("admin");
             if (adminUser == null)
             {
@@ -39,6 +53,10 @@ public static class Authentication
                 ThrowIfFail(result, "create admin user");
                 result = await userManager.AddToRoleAsync(adminUser, "admin");
                 ThrowIfFail(result, "asign admin role to admin user");
+                result = await userManager.AddToRoleAsync(adminUser, "viewer");
+                ThrowIfFail(result, "asign admin role to viewer user");
+                result = await userManager.AddToRoleAsync(adminUser, "editor");
+                ThrowIfFail(result, "asign admin role to editor user");
             }
         }
     }
