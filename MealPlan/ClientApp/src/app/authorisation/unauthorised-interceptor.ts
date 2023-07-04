@@ -9,6 +9,12 @@ export class UnauthorisedInterceptor implements HttpInterceptor {
 
     }
     intercept (request: HttpRequest<unknown>, next: HttpHandler) : Observable<HttpEvent<unknown>> {
+        // The login page needs to be able to handle Unauthorised messages itself
+        if (this.router.url === '/login') {
+            return next.handle(request);
+        }
+
+        // For every other page, we handle Unauthorised messages here by directing the user to the logon page
         return next.handle(request)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
