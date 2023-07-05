@@ -4,7 +4,8 @@
     </div>
     <div class="col-2">
         <span class="px-2 py-1" [style.color]="entry.location?.foregroundColour"
-            [style.background-color]="entry.location?.backgroundColour">
+            [style.background-color]="entry.location?.backgroundColour"
+            data-toggle="tooltip" data-placement="top" [title]="entry.location?.name">
             {{entry.location?.shortName ?? ''}}
         </span>
     </div>
@@ -13,7 +14,8 @@
             <div style="font-size: 0.6em;">
                 <span *ngFor="let person of entry.people">
                     <span class="p-1 rounded-circle" [style.color]="person.foregroundColour"
-                        [style.background-color]="person.backgroundColour">
+                        [style.background-color]="person.backgroundColour"
+                        data-toggle="tooltip" data-placement="top" [title]="person.name">
                         <small>{{person.shortName ?? ''}} </small>
                     </span>
                 </span>
