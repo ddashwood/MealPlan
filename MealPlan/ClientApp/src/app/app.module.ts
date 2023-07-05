@@ -15,6 +15,7 @@ import { UnauthorisedInterceptor } from './authorisation/unauthorised-intercepto
 import { ViewerRouteGuard } from './authorisation/viewer-route-guard';
 import { MealPlanComponent } from './meal-plan/meal-plan.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MealPlanEntryComponent } from './meal-plan-entry/meal-plan-entry.component';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -42,7 +43,8 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     NavMenuComponent,
     HomeComponent,
     LoginComponent,
-    MealPlanComponent
+    MealPlanComponent,
+    MealPlanEntryComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

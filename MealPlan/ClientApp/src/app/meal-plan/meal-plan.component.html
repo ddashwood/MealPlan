@@ -1,7 +1,7 @@
 <h1>Meal Plan</h1>
 
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-    <div class="row" *ngFor="let entry of mealPlanEntries">
-        {{entry.date}} - {{entry.mealDescription}}
+    <div *ngFor="let entry of mealPlanEntries">
+        <app-meal-plan-entry [entry]="entry"></app-meal-plan-entry>
     </div>
 </div>

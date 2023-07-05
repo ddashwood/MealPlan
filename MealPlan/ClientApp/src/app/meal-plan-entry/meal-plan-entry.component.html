@@ -1,0 +1,26 @@
+<div class="row mb-4 align-items-center">
+    <div class="col-2">
+        {{entry.date | date:'E dd MMM'}}
+    </div>
+    <div class="col-2">
+        <span class="px-2 py-1" [style.color]="entry.location?.foregroundColour"
+            [style.background-color]="entry.location?.backgroundColour">
+            {{entry.location?.shortName ?? ''}}
+        </span>
+    </div>
+    <div class="col-2">
+        <ng-container *ngIf="entry.people">
+            <div style="font-size: 0.6em;">
+                <span *ngFor="let person of entry.people">
+                    <span class="p-1 rounded-circle" [style.color]="person.foregroundColour"
+                        [style.background-color]="person.backgroundColour">
+                        <small>{{person.shortName ?? ''}} </small>
+                    </span>
+                </span>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col-6">
+        {{entry.mealDescription}}
+    </div>
+</div>
