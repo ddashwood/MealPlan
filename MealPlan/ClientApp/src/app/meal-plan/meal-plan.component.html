@@ -1,1 +1,7 @@
-<p>meal-plan works!</p>
+<h1>Meal Plan</h1>
+
+<div class="row" *ngFor="let entry of mealPlanEntries">
+    {{entry.date}} - {{entry.mealDescription}}
+</div>
+
+<button (click)="onLoadMore()">Load More</button>
