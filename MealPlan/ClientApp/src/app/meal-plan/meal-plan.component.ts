@@ -14,7 +14,7 @@ export class MealPlanComponent implements OnInit {
 
   constructor (private mealPlanService : MealPlanService) {
     this.startDate = new Date();
-    this.endDate = this.addDays(this.startDate, 7);
+    this.endDate = this.addDays(this.startDate, 60);
   }
 
   ngOnInit(): void {
@@ -32,9 +32,11 @@ export class MealPlanComponent implements OnInit {
     return date.toISOString().split('T')[0];
   }
 
-  public onLoadMore() {
+  public onScroll() {
     let newStartDate = this.addDays(this.endDate, 1);
     this.endDate = this.addDays(this.endDate, 7);
+
+    console.log(`Scrolling from ${newStartDate} to ${this.endDate}`);
 
     this.mealPlanService.apiMealPlanGet(this.dateToString(newStartDate), this.dateToString(this.endDate))
         .subscribe(data => this.mealPlanEntries.push(...data));

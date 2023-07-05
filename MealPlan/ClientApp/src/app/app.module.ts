@@ -14,6 +14,7 @@ import { JWTTokenService } from './services/jwt-token-service/jwttoken.service';
 import { UnauthorisedInterceptor } from './authorisation/unauthorised-interceptor';
 import { ViewerRouteGuard } from './authorisation/viewer-route-guard';
 import { MealPlanComponent } from './meal-plan/meal-plan.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -51,7 +52,8 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'mealplan', component: MealPlanComponent, canActivate: [ViewerRouteGuard] },
       { path: 'login', component: LoginComponent },
-    ])
+    ]),
+    InfiniteScrollModule
   ],
   providers: [
     {
