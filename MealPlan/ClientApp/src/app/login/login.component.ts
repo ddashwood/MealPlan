@@ -19,7 +19,7 @@ export class LoginComponent {
     this.identityService.apiIdentityLoginPost(this.loginDetails)
       .subscribe({ next: results => {
         this.authService.setToken(results);
-        this.router.navigate(['/']);
+        this.router.navigate(['/mealplan']);
       }, error: error => {
         if(error.status == 401) {
           this.errorMessage = "The username/password is not correct";

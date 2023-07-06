@@ -28,12 +28,12 @@ export class NavMenuComponent {
 
   logout() {
     this.authService.clearToken();
+    this.router.navigate(["/"]);
   }
 
   private getUserDetails(authService: JWTTokenService) {
     this.loggedIn = !!authService.jwtToken;
     this.isViewer = authService.userCanView();
     this.userName = authService.getUserName();
-    this.router.navigate(["/"]);
   }
 }
