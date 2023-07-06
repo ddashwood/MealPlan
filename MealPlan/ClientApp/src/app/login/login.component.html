@@ -1,14 +1,14 @@
-<form>
+<form (submit)="onLogin()" #form="ngForm">
     <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input class="form-control" id="username" name="username" [(ngModel)]="loginDetails.userName" />
+        <input class="form-control" required id="username" name="username" [(ngModel)]="loginDetails.userName" />
     </div>
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="loginDetails.password" />
+        <input type="password" class="form-control" required id="password" name="password" [(ngModel)]="loginDetails.password" />
     </div>
     <div class="mb-3 text-danger">
         {{errorMessage}}
     </div>
-    <button type="submit" class="btn btn-primary" (click)="onLogin()">Login</button>
+    <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Login</button>
 </form>
