@@ -2,6 +2,6 @@
 
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <div *ngFor="let entry of mealPlanEntries">
-        <app-meal-plan-entry [entry]="entry"></app-meal-plan-entry>
+        <app-meal-plan-entry [entry]="entry" (click)="onSelectEntry(entry)"></app-meal-plan-entry>
     </div>
 </div>

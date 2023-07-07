@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, map, merge, tap } from 'rxjs';
 import { MealPlanDto, MealPlanService } from 'src/libs/api-client';
 
 @Component({
@@ -40,5 +39,9 @@ export class MealPlanComponent implements OnInit {
 
     this.mealPlanService.apiMealPlanGet(this.dateToString(newStartDate), this.dateToString(this.endDate))
         .subscribe(data => this.mealPlanEntries.push(...data));
+  }
+
+  public onSelectEntry(entry: MealPlanDto) {
+    console.log(entry.date);
   }
 }
