@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { MealPlanDto } from 'src/libs/api-client';
-declare var bootstrap:any;
+import { Tooltip } from 'bootstrap';
 
 @Component({
   selector: 'app-meal-plan-entry',
@@ -14,7 +14,7 @@ export class MealPlanEntryComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     var tooltipTriggerList = [].slice.call(this.container.nativeElement.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
+      return new Tooltip(tooltipTriggerEl);
     });
   }
 }
