@@ -1,7 +1,21 @@
-<p>
-    {{entry?.mealDescription}}
-</p>
+<form>
+    <div class="row">
+        <div class="form-check" *ngFor="let location of locations$ | async">
+            <input class="form-check-input" type="radio" [(ngModel)]="entry!.location!.id" name="location" [value]="location.id" [id]="'location-' + location.id">
+            <label class="form-check-label"
+                [style.color]="location.foregroundColour"
+                [style.background-color]="location.backgroundColour"
+                [for]="'location-' + location.id">
+                {{location.name}}
+            </label>
+        </div>
+    </div>
 
-<p>
-    <button class="btn btn-primary" (click)="onClose()">Close</button>
-</p>
+    <div class="row">
+        {{entry?.mealDescription}}
+    </div>
+
+    <div class="row">
+        <button class="btn btn-primary" (click)="onClose()">Close</button>
+    </div>
+</form>

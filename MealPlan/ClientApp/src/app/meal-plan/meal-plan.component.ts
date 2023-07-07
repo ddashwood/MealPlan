@@ -45,13 +45,12 @@ export class MealPlanComponent implements OnInit {
   }
 
   public onSelectEntry(entry: MealPlanDto) {
-    this.editingEntry = entry;
+    this.editingEntry = JSON.parse(JSON.stringify(entry)); // Deep clone the object, so we don't update the main model if the user doesn't save changes
     this.modal = new Modal('#editor-modal');
     this.modal.show();
   }
 
   public onCloseEditor() {
-    this.editingEntry = undefined;
     this.modal.hide();
   }
 }
