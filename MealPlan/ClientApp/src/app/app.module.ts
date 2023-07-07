@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpRequest } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { NgHttpCachingModule, NgHttpCachingConfig, NgHttpCachingStrategy } from 'ng-http-caching';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -17,6 +18,21 @@ import { MealPlanComponent } from './meal-plan/meal-plan.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MealPlanEntryComponent } from './meal-plan-entry/meal-plan-entry.component';
 import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan-entry-editor.component';
+
+const ngHttpCachingConfig: NgHttpCachingConfig = {
+  lifetime: 1000 * 60, // cache expire after 60 seconds,
+  allowedMethod: ['GET', 'HEAD'],
+  cacheStrategy: NgHttpCachingStrategy.ALLOW_ALL,
+  isCacheable: (req: HttpRequest<any>): boolean | undefined => {
+    if(req.url.indexOf('/api/Location') !== -1 ) {
+      return true;
+    }
+    if(req.url.indexOf('/api/Person') !== -1 ) {
+      return true;
+    }
+    return false;
+  }
+};
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -57,7 +73,8 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
       { path: 'mealplan', component: MealPlanComponent, canActivate: [ViewerRouteGuard] },
       { path: 'login', component: LoginComponent },
     ]),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgHttpCachingModule.forRoot(ngHttpCachingConfig),
   ],
   providers: [
     {
