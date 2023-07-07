@@ -5,3 +5,17 @@
         <app-meal-plan-entry [entry]="entry" (click)="onSelectEntry(entry)"></app-meal-plan-entry>
     </div>
 </div>
+
+<div id="editor-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enter meal details for {{editingEntry?.date | date:'EEEE d MMMM'}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-meal-plan-entry-editor></app-meal-plan-entry-editor>
+            </div>
+        </div>
+    </div>
+</div>

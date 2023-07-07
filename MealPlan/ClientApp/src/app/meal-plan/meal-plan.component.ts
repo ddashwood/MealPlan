@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MealPlanDto, MealPlanService } from 'src/libs/api-client';
+declare var bootstrap:any;
 
 @Component({
   selector: 'app-meal-plan',
@@ -8,6 +9,7 @@ import { MealPlanDto, MealPlanService } from 'src/libs/api-client';
 })
 export class MealPlanComponent implements OnInit {
   mealPlanEntries!: MealPlanDto[];
+  editingEntry?: MealPlanDto;
   private startDate: Date;
   private endDate: Date;
 
@@ -42,6 +44,8 @@ export class MealPlanComponent implements OnInit {
   }
 
   public onSelectEntry(entry: MealPlanDto) {
-    console.log(entry.date);
+    this.editingEntry = entry;
+    var modal = new bootstrap.Modal(document.getElementById('editor-modal'));
+    modal.show();
   }
 }
