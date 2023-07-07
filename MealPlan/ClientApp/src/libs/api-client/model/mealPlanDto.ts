@@ -9,14 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PersonDto } from './personDto';
-import { LocationDto } from './locationDto';
+import { MealPlanPersonDto } from './mealPlanPersonDto';
+import { MealPlanLocationDto } from './mealPlanLocationDto';
 
 
 export interface MealPlanDto { 
     date?: string;
     mealDescription?: string | null;
-    location?: LocationDto;
-    people?: Array<PersonDto> | null;
+    location?: MealPlanLocationDto;
+    people?: Array<MealPlanPersonDto> | null;
 }
 

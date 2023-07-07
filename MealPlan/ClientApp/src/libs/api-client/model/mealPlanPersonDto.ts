@@ -11,9 +11,10 @@
  */
 
 
-export interface LocationDto { 
+export interface MealPlanPersonDto { 
     id?: string;
     name?: string | null;
+    shortName?: string | null;
     foregroundColour?: string | null;
     backgroundColour?: string | null;
 }

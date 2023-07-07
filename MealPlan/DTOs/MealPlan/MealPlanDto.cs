@@ -9,7 +9,7 @@ public class MealPlanDto
     public DateOnly Date { get; set; }
     public string MealDescription { get; set; } = string.Empty;
 
-    public LocationDto Location { get; set; } = null!;
-    public List<PersonDto> People { get; set; } = null!;
+    public MealPlanLocationDto Location { get; set; } = null!;
+    public List<MealPlanPersonDto> People { get; set; } = null!;
 
 }

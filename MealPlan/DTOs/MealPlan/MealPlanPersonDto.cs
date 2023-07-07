@@ -4,7 +4,7 @@ using Shared.Helpers.Mapping;
 namespace MealPlan.DTOs.MealPlan;
 
 [MapFrom(typeof(Person))]
-public class PersonDto
+public class MealPlanPersonDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;

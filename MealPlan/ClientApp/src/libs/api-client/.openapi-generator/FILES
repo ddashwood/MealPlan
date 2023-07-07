@@ -3,7 +3,9 @@ README.md
 api.module.ts
 api/api.ts
 api/identity.service.ts
+api/location.service.ts
 api/mealPlan.service.ts
+api/person.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -11,6 +13,8 @@ index.ts
 model/locationDto.ts
 model/loginDto.ts
 model/mealPlanDto.ts
+model/mealPlanLocationDto.ts
+model/mealPlanPersonDto.ts
 model/models.ts
 model/personDto.ts
 param.ts
