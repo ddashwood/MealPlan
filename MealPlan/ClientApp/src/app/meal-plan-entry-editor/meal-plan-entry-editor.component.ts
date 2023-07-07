@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-meal-plan-entry-editor',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./meal-plan-entry-editor.component.css']
 })
 export class MealPlanEntryEditorComponent {
+  @Output() close = new EventEmitter<null>();
 
+  public onClose() {
+    this.close.emit();
+  }
 }

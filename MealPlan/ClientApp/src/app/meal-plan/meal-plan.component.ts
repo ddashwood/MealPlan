@@ -12,6 +12,7 @@ export class MealPlanComponent implements OnInit {
   editingEntry?: MealPlanDto;
   private startDate: Date;
   private endDate: Date;
+  private modal: any;
 
   constructor (private mealPlanService : MealPlanService) {
     this.startDate = new Date();
@@ -45,7 +46,12 @@ export class MealPlanComponent implements OnInit {
 
   public onSelectEntry(entry: MealPlanDto) {
     this.editingEntry = entry;
-    var modal = new bootstrap.Modal(document.getElementById('editor-modal'));
-    modal.show();
+    this.modal = new bootstrap.Modal(document.getElementById('editor-modal'));
+    this.modal.show();
+  }
+
+  public onCloseEditor() {
+    this.editingEntry = undefined;
+    this.modal.hide();
   }
 }
