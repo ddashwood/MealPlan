@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpRequest } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { NgHttpCachingModule, NgHttpCachingConfig, NgHttpCachingStrategy } from 'ng-http-caching';
+import { NgHttpCachingModule } from 'ng-http-caching';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -61,6 +61,7 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     ]),
     InfiniteScrollModule,
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
+    ReactiveFormsModule
   ],
   providers: [
     {

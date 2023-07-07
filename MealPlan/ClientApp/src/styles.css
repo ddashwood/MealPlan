@@ -19,6 +19,7 @@ code {
   border-color: #1861ac;
 }
 
-.ng-invalid.ng-dirty:not(form), .ng-invalid.ng-touched:not(form) {
+input:not([type=checkbox]):not([type=radio]).ng-invalid.ng-dirty:not(form),
+input:not([type=checkbox]):not([type=radio]).ng-invalid.ng-touched:not(form) {
   border-left: 5px solid red;
 }
