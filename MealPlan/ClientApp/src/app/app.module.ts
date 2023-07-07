@@ -18,21 +18,7 @@ import { MealPlanComponent } from './meal-plan/meal-plan.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MealPlanEntryComponent } from './meal-plan-entry/meal-plan-entry.component';
 import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan-entry-editor.component';
-
-const ngHttpCachingConfig: NgHttpCachingConfig = {
-  lifetime: 1000 * 60, // cache expire after 60 seconds,
-  allowedMethod: ['GET', 'HEAD'],
-  cacheStrategy: NgHttpCachingStrategy.ALLOW_ALL,
-  isCacheable: (req: HttpRequest<any>): boolean | undefined => {
-    if(req.url.indexOf('/api/Location') !== -1 ) {
-      return true;
-    }
-    if(req.url.indexOf('/api/Person') !== -1 ) {
-      return true;
-    }
-    return false;
-  }
-};
+import { ngHttpCachingConfig } from './caching-config';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
