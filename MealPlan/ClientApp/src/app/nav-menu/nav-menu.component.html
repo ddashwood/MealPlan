@@ -9,16 +9,16 @@
       <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-dark" (click)="collapse()" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isViewer">
-            <a class="nav-link text-dark" [routerLink]="['/mealplan']">Meal Plan</a>
+            <a class="nav-link text-dark" (click)="collapse()" [routerLink]="['/mealplan']">Meal Plan</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!loggedIn">
-            <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+            <a class="nav-link text-dark" (click)="collapse()" [routerLink]="['/login']">Login</a>
           </li>
           <li class="nav-item" *ngIf="loggedIn">
-            <a class="nav-link text-dark" href="javascript:void(0);" (click)="logout()">Logout {{userName}}</a>
+            <a class="nav-link text-dark" (click)="collapse()" href="javascript:void(0);" (click)="logout()">Logout {{userName}}</a>
           </li>
         </ul>
       </div>
