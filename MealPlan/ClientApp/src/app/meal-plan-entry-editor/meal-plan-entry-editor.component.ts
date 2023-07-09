@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormArray, FormBuilder,  FormControl,  FormGroup, Validators } from '@angular/forms';
+import { Observable, tap } from 'rxjs';
 import { LocationService, PersonService, LocationDto, MealPlanDto, MealPlanLocationDto, PersonDto } from 'src/libs/api-client';
 
 @Component({
@@ -12,21 +12,30 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
   @Output() close = new EventEmitter<null>();
   @Input() entry?: MealPlanDto;
 
-  formGroup: FormGroup = null!;
+  formGroup: FormGroup;
   
   locations$: Observable<LocationDto[]> = null!;
-  people$: Observable<PersonDto[]> = null!;
+  people:PersonDto[] = null!;
 
-  constructor(private builder: FormBuilder, private locationService: LocationService, private personService: PersonService) {
+  constructor(builder: FormBuilder, private locationService: LocationService, private personService: PersonService) {
+    this.formGroup = builder.group({
+      locationId: ['', Validators.required],
+      people: builder.array([])
+    });
   }
 
   ngOnInit(): void {
     this.locations$ = this.locationService.apiLocationGet();
-    this.people$ = this.personService.apiPersonGet();
-
-    this.formGroup = this.builder.group({
-      locationId: ['', Validators.required]
-    });    
+    this.personService.apiPersonGet().pipe(
+      tap({
+        next: people => {
+          let peopleControls = this.formGroup.controls['people'] as FormArray;
+          for (let person of people) {
+            peopleControls.push(new FormControl())
+          }
+        }
+      })
+    ).subscribe(p => this.people = p);
   }
 
   ngOnChanges(): void {
@@ -49,6 +58,13 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
     this.formGroup.patchValue({
       locationId: this.entry?.location?.id
     });
+    if (this.people) {
+      for (let i = 0; i < this.people.length; i++) {
+        let person = this.people[i];
+        let control = (this.formGroup.controls['people'] as FormArray).controls[i];
+        control.setValue(this.entry.people?.some(p => p.id === person.id));
+      }
+    }
   }
 
   public onClose() {
@@ -58,5 +74,9 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
   public onSubmit() {
     console.log('Valid: ', this.formGroup.valid);
     console.log('Saving');
+  }
+
+  getPersonControls() : FormArray {
+    return this.formGroup.controls['people'] as FormArray;
   }
 }
