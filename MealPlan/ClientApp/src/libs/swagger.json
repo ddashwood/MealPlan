@@ -145,6 +145,35 @@
             }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "MealPlan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MealPlanUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MealPlanUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MealPlanUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
       }
     },
     "/api/Person": {
@@ -295,6 +324,31 @@
           },
           "backgroundColour": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MealPlanUpdateDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "mealDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "peopleIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         },

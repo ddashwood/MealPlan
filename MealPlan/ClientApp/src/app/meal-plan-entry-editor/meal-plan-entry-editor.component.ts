@@ -1,7 +1,8 @@
+import { outputAst } from '@angular/compiler';
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { FormArray, FormBuilder,  FormControl,  FormGroup, Validators } from '@angular/forms';
 import { Observable, tap } from 'rxjs';
-import { LocationService, PersonService, LocationDto, MealPlanDto, MealPlanLocationDto, PersonDto } from 'src/libs/api-client';
+import { LocationService, PersonService, LocationDto, MealPlanDto, MealPlanLocationDto, PersonDto, MealPlanUpdateDto } from 'src/libs/api-client';
 
 @Component({
   selector: 'app-meal-plan-entry-editor',
@@ -10,6 +11,7 @@ import { LocationService, PersonService, LocationDto, MealPlanDto, MealPlanLocat
 })
 export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
   @Output() close = new EventEmitter<null>();
+  @Output() save = new EventEmitter<MealPlanUpdateDto>();
   @Input() entry?: MealPlanDto;
 
   formGroup: FormGroup;
@@ -74,8 +76,17 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
   }
 
   public onSubmit() {
-    console.log('Valid: ', this.formGroup.valid);
-    console.log('Saving');
+    if (!this.formGroup.valid) {
+      return;
+    }
+
+    var dto = <MealPlanUpdateDto> {
+      date: this.entry?.date,
+      mealDescription: this.formGroup.value["description"],
+      locationId: this.formGroup.value["locationId"]
+    }
+    this.save.emit(dto);
+    this.close.emit();
   }
 
   getPersonControls() : FormArray {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
-import { MealPlanDto, MealPlanService } from 'src/libs/api-client';
+import { MealPlanDto, MealPlanService, MealPlanUpdateDto } from 'src/libs/api-client';
 import { MealPlanEntryEditorComponent } from '../meal-plan-entry-editor/meal-plan-entry-editor.component';
 
 @Component({
@@ -56,5 +56,9 @@ export class MealPlanComponent implements OnInit {
 
   public onCloseEditor() {
     this.modal.hide();
+  }
+
+  public onSave(saveData: MealPlanUpdateDto) {
+
   }
 }

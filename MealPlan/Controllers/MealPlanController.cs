@@ -29,4 +29,11 @@ public class MealPlanController : ControllerBase
 
         return _mapper.Map<List<MealPlanDto>>(result);
     }
+
+    [HttpPut]
+    [Authorize(Roles = "editor")]
+    public async Task<ActionResult> Put(MealPlanUpdateDto dto)
+    {
+        return Ok();
+    }
 }

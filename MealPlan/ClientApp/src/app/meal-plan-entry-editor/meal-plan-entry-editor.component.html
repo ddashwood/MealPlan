@@ -44,10 +44,10 @@
         <div class="row">
             <div class="col-6"></div>
             <div class="col-3">
-                <button [disabled]="!formGroup.valid" class="btn btn-primary w-100" type="submit">Save</button>
+                <button type="submit" [disabled]="!formGroup.valid" class="btn btn-primary w-100" type="submit">Save</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-primary w-100" type="button" (click)="onClose()">Cancel</button>
+                <button type="button" class="btn btn-primary w-100" type="button" (click)="onClose()">Cancel</button>
             </div>
         </div>
     </div>

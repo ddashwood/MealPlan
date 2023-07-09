@@ -15,6 +15,7 @@ model/loginDto.ts
 model/mealPlanDto.ts
 model/mealPlanLocationDto.ts
 model/mealPlanPersonDto.ts
+model/mealPlanUpdateDto.ts
 model/models.ts
 model/personDto.ts
 param.ts
