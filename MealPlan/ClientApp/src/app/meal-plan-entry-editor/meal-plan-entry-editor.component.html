@@ -1,27 +1,51 @@
 <form [formGroup]="formGroup" (submit)="onSubmit()">
-    <div class="row">
-        <div class="form-check" *ngFor="let location of locations$ | async">
-            <input class="form-check-input" type="radio" formControlName="locationId" name="locationId" [value]="location.id" [id]="'location-' + location.id">
-            <label class="form-check-label"
-                [style.color]="location.foregroundColour"
-                [style.background-color]="location.backgroundColour"
-                [for]="'location-' + location.id">
-                {{location.name}}
-            </label>
+    <div class="container">
+        <div class="pb-3">
+            <div class="row">
+                <span class="fw-bold ps-0 pb-1">Location:</span>
+            </div>
+            <div class="row">
+                <div class="form-check" *ngFor="let location of locations$ | async">
+                    <input class="form-check-input" type="radio" formControlName="locationId" name="locationId"
+                        [value]="location.id" [id]="'location-' + location.id">
+                    <label class="form-check-label" [style.color]="location.foregroundColour"
+                        [style.background-color]="location.backgroundColour" [for]="'location-' + location.id">
+                        {{location.name}}
+                    </label>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        {{entry?.mealDescription}}
-    </div>
-
-    <div class="row">
-        <div class="col-6"></div>
-        <div class="col-3">
-            <button [disabled]="!formGroup.valid" class="btn btn-primary w-100" type="submit">Save</button>
+        <div class="pb-3">
+            <div class=row>
+                <span class="fw-bold ps-0 pb-1">People:</span>
+            </div>
+            <div class="row">
+                <div class="form-check" *ngFor="let person of people$ | async">
+                    <input class="form-check-input" type="checkbox" [formControlName]="'person-' + person.id" [name]="'person-' + person.id"
+                        [id]="'person-' + person.id">
+                    <label class="form-check-label rounded-3" [style.color]="person.foregroundColour"
+                        [style.background-color]="person.backgroundColour" [for]="'person-' + person.id">
+                        {{person.name}}
+                    </label>
+                </div>
+            </div>
         </div>
-        <div class="col-3">
-            <button class="btn btn-primary w-100" type="button" (click)="onClose()">Cancel</button>
+
+        <div class="pb-3">
+            <div class="row">
+                {{entry?.mealDescription}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-3">
+                <button [disabled]="!formGroup.valid" class="btn btn-primary w-100" type="submit">Save</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-primary w-100" type="button" (click)="onClose()">Cancel</button>
+            </div>
         </div>
     </div>
 </form>

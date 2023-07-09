@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { LocationDto, LocationService, MealPlanDto, MealPlanLocationDto } from 'src/libs/api-client';
+import { LocationService, PersonService, LocationDto, MealPlanDto, MealPlanLocationDto, PersonDto } from 'src/libs/api-client';
 
 @Component({
   selector: 'app-meal-plan-entry-editor',
@@ -12,18 +12,21 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
   @Output() close = new EventEmitter<null>();
   @Input() entry?: MealPlanDto;
 
-  formGroup: FormGroup;
+  formGroup: FormGroup = null!;
   
   locations$: Observable<LocationDto[]> = null!;
+  people$: Observable<PersonDto[]> = null!;
 
-  constructor(builder: FormBuilder, private locationService: LocationService) {
-    this.formGroup = builder.group({
-      locationId: ['', Validators.required]
-    });
+  constructor(private builder: FormBuilder, private locationService: LocationService, private personService: PersonService) {
   }
 
   ngOnInit(): void {
     this.locations$ = this.locationService.apiLocationGet();
+    this.people$ = this.personService.apiPersonGet();
+
+    this.formGroup = this.builder.group({
+      locationId: ['', Validators.required]
+    });    
   }
 
   ngOnChanges(): void {
