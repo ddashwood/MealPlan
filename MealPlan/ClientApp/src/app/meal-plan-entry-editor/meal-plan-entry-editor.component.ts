@@ -27,6 +27,10 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.resetForm();
+  }
+
+  resetForm(): void {
     // Check we have a suitable model to work with
     if (!this.entry) {
       this.entry = <MealPlanDto> { };

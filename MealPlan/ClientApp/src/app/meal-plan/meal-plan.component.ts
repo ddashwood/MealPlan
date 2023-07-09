@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { MealPlanDto, MealPlanService } from 'src/libs/api-client';
+import { MealPlanEntryEditorComponent } from '../meal-plan-entry-editor/meal-plan-entry-editor.component';
 
 @Component({
   selector: 'app-meal-plan',
@@ -13,6 +14,8 @@ export class MealPlanComponent implements OnInit {
   private startDate: Date;
   private endDate: Date;
   private modal: Modal = null!;
+
+  @ViewChild(MealPlanEntryEditorComponent) editor:MealPlanEntryEditorComponent = null!;
 
   constructor (private mealPlanService : MealPlanService) {
     this.startDate = new Date();
@@ -45,7 +48,8 @@ export class MealPlanComponent implements OnInit {
   }
 
   public onSelectEntry(entry: MealPlanDto) {
-    this.editingEntry = JSON.parse(JSON.stringify(entry)); // Deep clone the object, so we don't update the main model if the user doesn't save changes
+    this.editingEntry = entry;
+    this.editor.resetForm();
     this.modal = new Modal('#editor-modal');
     this.modal.show();
   }
