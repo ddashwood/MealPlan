@@ -61,5 +61,26 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
 
     private void CreateNew(SaveMealPlanRequest request)
     {
+        var entry = new MealPlanEntry
+        {
+            Date = request.Date,
+            MealDescription = request.MealDescription
+        };
+
+        var location = new Location { Id = request.LocationId };
+        _context.Attach(location);
+        entry.Location = location;
+
+        entry.People = new List<Person>();
+
+        foreach(var personId in request.PeopleIds)
+        {
+            var person = new Person { Id = personId };
+            _context.Attach(person);
+
+            entry.People.Add(person);
+        }
+
+        _context.MealPlanEntries.Add(entry);
     }
 }
