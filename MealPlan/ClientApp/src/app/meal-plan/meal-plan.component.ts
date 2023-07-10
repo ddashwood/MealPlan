@@ -68,6 +68,6 @@ export class MealPlanComponent implements OnInit {
   }
 
   public onSave(saveData: MealPlanUpdateDto) {
-    console.log(saveData);
+    this.mealPlanService.apiMealPlanPut(saveData).subscribe();
   }
 }

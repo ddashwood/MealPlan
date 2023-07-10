@@ -1,14 +1,12 @@
-﻿using MealPlan.Models;
-using Shared.Helpers.Mapping;
+using MediatR;
 
-namespace MealPlan.DTOs.MealPlan;
+namespace MealPlan.Application.MealPlan.Commands.SaveMealPlan;
 
-public class MealPlanUpdateDto
+public class SaveMealPlanRequest : IRequest
 {
     public DateOnly Date { get; set; }
     public string MealDescription { get; set; } = string.Empty;
 
     public Guid LocationId { get; set; }
     public List<Guid> PeopleIds { get; set; } = new List<Guid>();
-
 }
