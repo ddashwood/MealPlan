@@ -49,7 +49,7 @@ export class MealPlanComponent implements OnInit {
   }
 
   public canEdit() : boolean {
-    return this.tokenService.useCanEdit();
+    return this.tokenService.userCanEdit();
   }
 
   public onSelectEntry(entry: MealPlanDto) {

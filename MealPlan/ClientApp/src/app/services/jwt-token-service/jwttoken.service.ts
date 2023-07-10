@@ -56,7 +56,7 @@ export class JWTTokenService {
     return this.userIsInRole('viewer') || this.userIsInRole('editor');
   }
 
-  useCanEdit() : boolean {
+  userCanEdit() : boolean {
     return this.userIsInRole('editor');
   }
 }
