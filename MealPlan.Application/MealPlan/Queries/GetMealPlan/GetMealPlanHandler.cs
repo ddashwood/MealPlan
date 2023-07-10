@@ -22,7 +22,7 @@ internal class GetMealPlanHandler : IRequestHandler<GetMealPlanRequest, IEnumera
                         .Include(e => e.Location)
                         .OrderBy(e => e.Date)
                         .AsSplitQuery()
-                        .ToListAsync();
+                        .ToListAsync(CancellationToken.None);
 
         var results = new List<MealPlanEntry>();
 

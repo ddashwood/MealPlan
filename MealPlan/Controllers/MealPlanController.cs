@@ -33,9 +33,11 @@ public class MealPlanController : ControllerBase
 
     [HttpPut]
     [Authorize(Roles = "editor")]
-    public async Task<ActionResult> Put(MealPlanUpdateDto dto)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<ActionResult<MealPlanDto>> Put(MealPlanUpdateDto dto)
     {
-        var request = new SaveMealPlanRequest
+        // Update
+        var updateRequest = new SaveMealPlanRequest
         {
             Date = dto.Date,
             LocationId = dto.LocationId,
@@ -43,8 +45,12 @@ public class MealPlanController : ControllerBase
             PeopleIds = dto.PeopleIds
         };
 
-        await _mediator.Send(request);
+        await _mediator.Send(updateRequest);
 
-        return Ok();
+        // Get saved data for returning to client
+        var getRequest = new GetMealPlanRequest { StartDate = dto.Date, EndDate = dto.Date };
+        var result = (await _mediator.Send(getRequest)).FirstOrDefault();
+
+        return CreatedAtAction(nameof(Get), new { startDate = dto.Date, endDate = dto.Date}, _mapper.Map<MealPlanDto>(result));
     }
 }
