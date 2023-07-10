@@ -83,7 +83,15 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
     var dto = <MealPlanUpdateDto> {
       date: this.entry?.date,
       mealDescription: this.formGroup.value["description"],
-      locationId: this.formGroup.value["locationId"]
+      locationId: this.formGroup.value["locationId"],
+      peopleIds: []
+    };
+    if(this.people) {
+      for (let i = 0; i < this.people.length; i++) {
+        if (this.getPersonControls().value[i]) {
+          dto.peopleIds?.push(this.people[i].id ?? "");
+        }
+      }
     }
     this.save.emit(dto);
     this.close.emit();
