@@ -13,12 +13,13 @@ export class LoginComponent {
   }
 
   loginDetails: LoginDto = <LoginDto>{};
+  rememberMe: boolean = false;
   errorMessage: string | null = null;
 
   onLogin() {
     this.identityService.apiIdentityLoginPost(this.loginDetails)
       .subscribe({ next: results => {
-        this.authService.setToken(results);
+        this.authService.setToken(results, this.rememberMe);
         this.router.navigate(['/mealplan']);
       }, error: error => {
         if(error.status == 401) {

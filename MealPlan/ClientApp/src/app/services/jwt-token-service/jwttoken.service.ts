@@ -11,10 +11,10 @@ export class JWTTokenService {
   updated$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
 
   constructor(private storage: LocalStorageService) {
-    this.setToken(storage.get("token"))
+    this.setToken(storage.get("token"), true)
   }
 
-  setToken(token: string | null) {  
+  setToken(token: string | null, rememberMe: boolean) {  
     if (token) {
       let decoded = (jwt_decode(token) as any);
       var exp = new Date(decoded['exp'] * 1000);
@@ -24,7 +24,11 @@ export class JWTTokenService {
       }
 
       this.jwtToken = token;
-      this.storage.set("token", token);
+      if(rememberMe) {
+        this.storage.set("token", token);
+      } else {
+        this.storage.set("token", '');
+      }
       this.updated$.next(undefined);
     }
   }
