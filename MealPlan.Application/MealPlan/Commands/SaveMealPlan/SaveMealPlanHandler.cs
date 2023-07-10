@@ -30,6 +30,10 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
         }
 
         await _context.SaveChangesAsync(CancellationToken.None);
+
+        // We have attached incomplete entities, so we need to clear them
+        // to ensure they aren't returned from future queries
+        _context.ChangeTracker.Clear();
     }
 
     private void UpdateExisting(MealPlanEntry existing, SaveMealPlanRequest request)

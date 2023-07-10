@@ -68,6 +68,16 @@ export class MealPlanComponent implements OnInit {
   }
 
   public onSave(saveData: MealPlanUpdateDto) {
-    this.mealPlanService.apiMealPlanPut(saveData).subscribe();
+    this.mealPlanService.apiMealPlanPut(saveData).subscribe(entry => {
+      let existingIndex = this.mealPlanEntries.findIndex(e => e.date === entry.date);
+
+      if (existingIndex === -1) {
+        // Should probably try to insert at the correct position, but since this ought to
+        // never happen, it can stay as it is for now
+        this.mealPlanEntries.push(entry);
+      } else {
+        this.mealPlanEntries[existingIndex] = entry;
+      }
+    });
   }
 }
