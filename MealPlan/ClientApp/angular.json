@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "MealPlan"
+  "defaultProject": "MealPlan",
+  "cli": {
+    "analytics": false
+  }
 }

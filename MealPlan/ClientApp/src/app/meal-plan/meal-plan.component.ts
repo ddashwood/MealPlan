@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { MealPlanDto, MealPlanService, MealPlanUpdateDto } from 'src/libs/api-client';
 import { MealPlanEntryEditorComponent } from '../meal-plan-entry-editor/meal-plan-entry-editor.component';
+import { JWTTokenService } from '../services/jwt-token-service/jwttoken.service';
 
 @Component({
   selector: 'app-meal-plan',
@@ -17,7 +18,7 @@ export class MealPlanComponent implements OnInit {
 
   @ViewChild(MealPlanEntryEditorComponent) editor:MealPlanEntryEditorComponent = null!;
 
-  constructor (private mealPlanService : MealPlanService) {
+  constructor (private mealPlanService : MealPlanService, private tokenService: JWTTokenService) {
     this.startDate = new Date();
     this.endDate = this.addDays(this.startDate, 60);
   }
@@ -47,7 +48,15 @@ export class MealPlanComponent implements OnInit {
         .subscribe(data => this.mealPlanEntries.push(...data));
   }
 
+  public canEdit() : boolean {
+    return this.tokenService.useCanEdit();
+  }
+
   public onSelectEntry(entry: MealPlanDto) {
+    if (!this.canEdit()) {
+      return;
+    }
+
     this.editingEntry = entry;
     this.editor.resetForm();
     this.modal = new Modal('#editor-modal');
