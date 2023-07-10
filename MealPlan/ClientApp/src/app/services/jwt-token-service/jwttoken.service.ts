@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../local-storage-service/local-storage.service';
 import jwt_decode  from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
+import { SessionStorageService } from '../session-storage-service/session-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,14 @@ export class JWTTokenService {
   jwtToken: string = "";
   updated$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
 
-  constructor(private storage: LocalStorageService) {
-    this.setToken(storage.get("token"), true)
+  constructor(private localStorage: LocalStorageService, private sessionStorage: SessionStorageService) {
+    var rememberedToken = localStorage.get("token");
+
+    if (rememberedToken) {
+      this.setToken(rememberedToken, true);
+    } else {
+      this.setToken(sessionStorage.get("token"), false);
+    }
   }
 
   setToken(token: string | null, rememberMe: boolean) {  
@@ -25,9 +32,11 @@ export class JWTTokenService {
 
       this.jwtToken = token;
       if(rememberMe) {
-        this.storage.set("token", token);
+        this.localStorage.set("token", token);
+        this.sessionStorage.remove("token");
       } else {
-        this.storage.set("token", '');
+        this.sessionStorage.set("token", token);
+        this.localStorage.remove("token");
       }
       this.updated$.next(undefined);
     }
@@ -35,7 +44,8 @@ export class JWTTokenService {
 
   clearToken() {
     this.jwtToken = "";
-    this.storage.remove("token");
+    this.localStorage.remove("token");
+    this.sessionStorage.remove("token");
     this.updated$.next(undefined);
   }
 
