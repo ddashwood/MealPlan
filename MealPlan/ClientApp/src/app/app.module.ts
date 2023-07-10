@@ -19,6 +19,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MealPlanEntryComponent } from './meal-plan-entry/meal-plan-entry.component';
 import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan-entry-editor.component';
 import { ngHttpCachingConfig } from './caching-config';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -48,7 +49,8 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     LoginComponent,
     MealPlanComponent,
     MealPlanEntryComponent,
-    MealPlanEntryEditorComponent
+    MealPlanEntryEditorComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -58,6 +60,7 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'mealplan', component: MealPlanComponent, canActivate: [ViewerRouteGuard] },
       { path: 'login', component: LoginComponent },
+      { path: 'change-password', component: ChangePasswordComponent}
     ]),
     InfiniteScrollModule,
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
