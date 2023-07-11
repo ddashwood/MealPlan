@@ -23,7 +23,7 @@ export class UnauthorisedInterceptor implements HttpInterceptor {
                         return of();
                     }
 
-                    return throwError(() => new Error(error.message));
+                    return throwError(() => error);
                 })
             )
     }

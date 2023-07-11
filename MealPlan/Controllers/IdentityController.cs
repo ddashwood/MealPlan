@@ -1,6 +1,7 @@
 ﻿using MealPlan.Application.Identity.Queries.Login;
 using MealPlan.DTOs.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MealPlan.Controllers;
@@ -31,8 +32,11 @@ public class IdentityController : ControllerBase
     [HttpPut("Password")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(List<string>), StatusCodes.Status400BadRequest)]
+    [Authorize]
     public async Task<ActionResult<List<string>>> ChangePassword(ChangePasswordDto dto)
     {
-        return Ok();
+        var errors = new List<string> { "Error 1", "Error 2" };
+        //return BadRequest(errors);
+        return NoContent();
     }
 }
