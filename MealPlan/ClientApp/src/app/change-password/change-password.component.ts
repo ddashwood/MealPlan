@@ -14,6 +14,7 @@ import { ChangePasswordDto, IdentityService } from 'src/libs/api-client';
 export class ChangePasswordComponent {
   public formGroup: FormGroup;
   public errors: string[] = [];
+  public submitting: boolean = false;
 
   constructor(formBuilder: FormBuilder, private identityService: IdentityService, private router: Router) {
     this.formGroup = formBuilder.group({
@@ -28,6 +29,8 @@ export class ChangePasswordComponent {
   }
 
   public onChangePassword() {
+    this.submitting = true;
+
     let dto = <ChangePasswordDto> {
       oldPassword: this.formGroup.value['oldPassword'],
       newPassword: this.formGroup.value['newPassword']
@@ -35,9 +38,11 @@ export class ChangePasswordComponent {
     this.identityService.apiIdentityPasswordPut(dto)
     .subscribe({
         next: () => {
+          this.submitting = false;
           this.router.navigate(["/mealplan"]);
         },
         error: (err: HttpErrorResponse) => {
+          this.submitting = false;
           if(Array.isArray(err.error)) {
             this.errors = err.error;
           }

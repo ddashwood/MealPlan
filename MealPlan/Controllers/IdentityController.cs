@@ -1,4 +1,5 @@
-﻿using MealPlan.Application.Identity.Queries.Login;
+﻿using MealPlan.Application.Identity.Commands.ChangePassword;
+using MealPlan.Application.Identity.Queries.Login;
 using MealPlan.DTOs.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -35,8 +36,16 @@ public class IdentityController : ControllerBase
     [Authorize]
     public async Task<ActionResult<List<string>>> ChangePassword(ChangePasswordDto dto)
     {
-        var errors = new List<string> { "Error 1", "Error 2" };
-        //return BadRequest(errors);
-        return NoContent();
+        var request = new ChangePasswordRequest(this.User, dto.OldPassword, dto.NewPassword);
+        var errors = await _mediator.Send(request);
+
+        if (errors.Count == 0)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return BadRequest(errors);
+        }
     }
 }
