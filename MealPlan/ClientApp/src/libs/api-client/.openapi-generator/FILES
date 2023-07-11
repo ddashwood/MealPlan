@@ -10,6 +10,7 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/changePasswordDto.ts
 model/locationDto.ts
 model/loginDto.ts
 model/mealPlanDto.ts

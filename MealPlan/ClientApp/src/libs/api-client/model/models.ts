@@ -1,3 +1,4 @@
+export * from './changePasswordDto';
 export * from './locationDto';
 export * from './loginDto';
 export * from './mealPlanDto';
