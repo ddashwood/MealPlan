@@ -20,6 +20,7 @@ import { MealPlanEntryComponent } from './meal-plan-entry/meal-plan-entry.compon
 import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan-entry-editor.component';
 import { ngHttpCachingConfig } from './caching-config';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 function getOpenApiBaseUrl() : string {
   let url = getBaseUrl();
@@ -64,7 +65,8 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     ]),
     InfiniteScrollModule,
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RxReactiveFormsModule
   ],
   providers: [
     {
