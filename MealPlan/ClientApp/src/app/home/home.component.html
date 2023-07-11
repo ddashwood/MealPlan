@@ -1,2 +1,11 @@
 <h1>Meal Plan</h1>
-<img src="/assets/img/mealplan.jpg" alt="background" width="100%">
+
+<div class="bg-image">
+    <img src="/assets/img/mealplan.jpg" alt="background" class="w-100">
+    <div class="mask">
+        <div class="text-end m-4">
+            <a *ngIf="loggedIn" type="button" class="btn btn-lg btn-secondary" [routerLink]="['/mealplan']">Go to Meal Plan</a>
+            <a *ngIf="!loggedIn" type="button" class="btn btn-lg btn-secondary" [routerLink]="['/login']">Log in</a>
+        </div>
+    </div>
+</div>
