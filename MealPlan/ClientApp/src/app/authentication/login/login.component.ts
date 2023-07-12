@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IdentityService, LoginDto } from 'src/libs/api-client';
-import { JWTTokenService } from '../services/jwt-token-service/jwttoken.service';
+import { JWTTokenService } from '../../services/jwt-token-service/jwttoken.service';
 
 @Component({
   selector: 'app-login',
