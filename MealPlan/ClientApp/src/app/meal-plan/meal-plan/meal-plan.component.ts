@@ -12,9 +12,11 @@ import { JWTTokenService } from '../../services/jwt-token-service/jwttoken.servi
 export class MealPlanComponent implements OnInit {
   mealPlanEntries!: MealPlanDto[];
   editingEntry?: MealPlanDto;
+
   private startDate: Date;
   private endDate: Date;
   private modal: Modal = null!;
+  private scrolling: boolean = false;
 
   @ViewChild(MealPlanEntryEditorComponent) editor:MealPlanEntryEditorComponent = null!;
 
@@ -39,13 +41,26 @@ export class MealPlanComponent implements OnInit {
   }
 
   public onScroll() {
-    let newStartDate = this.addDays(this.endDate, 1);
-    this.endDate = this.addDays(this.endDate, 7);
+    if(this.scrolling) {
+      return; // Don't scroll again if we're already scrolling
+    }
 
-    console.log(`Scrolling from ${newStartDate} to ${this.endDate}`);
+    try
+    {
+      this.scrolling = true;
 
-    this.mealPlanService.apiMealPlanGet(this.dateToString(newStartDate), this.dateToString(this.endDate))
-        .subscribe(data => this.mealPlanEntries.push(...data));
+      let newStartDate = this.addDays(this.endDate, 1);
+      this.endDate = this.addDays(this.endDate, 7);
+
+      console.log(`Scrolling from ${newStartDate} to ${this.endDate}`);
+
+      this.mealPlanService.apiMealPlanGet(this.dateToString(newStartDate), this.dateToString(this.endDate))
+          .subscribe(data => this.mealPlanEntries.push(...data));
+    }
+    finally
+    {
+      this.scrolling = false;
+    }
   }
 
   public canEdit() : boolean {
