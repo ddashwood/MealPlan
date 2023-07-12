@@ -37,7 +37,6 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    AppRoutingModule,
     InfiniteScrollModule,
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
     ReactiveFormsModule,
