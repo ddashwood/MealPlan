@@ -6,7 +6,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ChangePasswordDto, IdentityService } from 'src/libs/api-client';
 
 @Component({
-  selector: 'app-change-password',
+  selector: 'authentication-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })

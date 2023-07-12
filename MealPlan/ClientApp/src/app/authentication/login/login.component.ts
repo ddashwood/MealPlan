@@ -4,7 +4,7 @@ import { IdentityService, LoginDto } from 'src/libs/api-client';
 import { JWTTokenService } from '../../services/jwt-token-service/jwttoken.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'authentication-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })  
