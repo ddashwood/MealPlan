@@ -3,14 +3,14 @@
         {{entry.date | date:'E dd MMM'}}
     </div>
     <div class="col-2">
-        <div class="px-2 py-1 d-inline-block" [style.color]="entry.location?.foregroundColour"
+        <span class="px-2 py-1" [style.color]="entry.location?.foregroundColour"
             [style.background-color]="entry.location?.backgroundColour"
             data-toggle="tooltip" data-placement="top" [title]="entry.location?.name">
             {{entry.location?.shortName ?? ''}}
-        </div>
-        <div *ngIf="entry.delivery">
+        </span>
+        <span *ngIf="entry.delivery">
             <img src="/assets/img/delivery.png" style="width: 3em;" alt="Delivery">
-        </div>
+        </span>
     </div>
     <div class="col-2">
         <ng-container *ngIf="entry.people">
