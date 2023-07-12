@@ -431,6 +431,9 @@
             "type": "string",
             "nullable": true
           },
+          "delivery": {
+            "type": "boolean"
+          },
           "locationId": {
             "type": "string",
             "format": "uuid"
