@@ -31,7 +31,7 @@ public class MealPlanContext : IdentityDbContext<ApplicationUser, ApplicationRol
         builder.Entity<MealPlanEntry>(entity =>
         {
             entity.HasKey(e => e.Date);
+            entity.Property(e => e.Delivery).IsRequired().HasDefaultValue(false);
         });
-
     }
 }

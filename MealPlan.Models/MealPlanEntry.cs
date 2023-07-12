@@ -7,4 +7,6 @@ public class MealPlanEntry
 
     public Location? Location { get; set; }
     public List<Person> People { get; set; } = new List<Person>();
+
+    public bool Delivery { get; set; }
 }
