@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { MealPlanComponent } from './meal-plan/meal-plan.component';
 import { MealPlanEntryComponent } from './meal-plan-entry/meal-plan-entry.component';
 import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan-entry-editor.component';
