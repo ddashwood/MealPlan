@@ -355,6 +355,9 @@
             "type": "string",
             "nullable": true
           },
+          "delivery": {
+            "type": "boolean"
+          },
           "location": {
             "$ref": "#/components/schemas/MealPlanLocationDto"
           },

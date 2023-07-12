@@ -23,6 +23,7 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
     this.formGroup = builder.group({
       locationId: ['', Validators.required],
       description: '',
+      delivery: false,
       people: builder.array([])
     });
   }
@@ -60,7 +61,8 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
     // Now, set up the form's initial values
     this.formGroup.patchValue({
       locationId: this.entry?.location?.id,
-      description: this.entry?.mealDescription
+      description: this.entry?.mealDescription,
+      delivery: this.entry?.delivery
     });
     if (this.people) {
       for (let i = 0; i < this.people.length; i++) {
@@ -84,6 +86,7 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
       date: this.entry?.date,
       mealDescription: this.formGroup.value["description"],
       locationId: this.formGroup.value["locationId"],
+      delivery: this.formGroup.value["delivery"],
       peopleIds: []
     };
     if(this.people) {

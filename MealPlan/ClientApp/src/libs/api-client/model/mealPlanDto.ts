@@ -16,6 +16,7 @@ import { MealPlanLocationDto } from './mealPlanLocationDto';
 export interface MealPlanDto { 
     date?: string;
     mealDescription?: string | null;
+    delivery?: boolean;
     location?: MealPlanLocationDto;
     people?: Array<MealPlanPersonDto> | null;
 }
