@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { Configuration, ConfigurationParameters } from 'src/libs/api-client';
-import { getBaseUrl } from 'src/main';
 import { LoginComponent } from './login/login.component';
 import { JWTTokenService } from './services/jwt-token-service/jwttoken.service';
 import { UnauthorisedInterceptor } from './authorisation/unauthorised-interceptor';
@@ -21,26 +20,8 @@ import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan
 import { ngHttpCachingConfig } from './caching-config';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-
-function getOpenApiBaseUrl() : string {
-  let url = getBaseUrl();
-  if (url.endsWith("/")) {
-    // Open API needs the trailing / removed
-    url = url.slice(0, -1);
-  }
-
-  return url;
-}
-
-export function apiConfigFactory (authService: JWTTokenService): Configuration {
-  const params: ConfigurationParameters = {
-    basePath: getOpenApiBaseUrl(),
-    credentials: {
-      "Bearer": () => "Bearer " + authService.jwtToken
-    }
-  };
-  return new Configuration(params);
-}
+import { apiConfigFactory } from './openapi-helpers';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -57,16 +38,12 @@ export function apiConfigFactory (authService: JWTTokenService): Configuration {
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'mealplan', component: MealPlanComponent, canActivate: [ViewerRouteGuard] },
-      { path: 'login', component: LoginComponent },
-      { path: 'change-password', component: ChangePasswordComponent}
-    ]),
+    AppRoutingModule,
     InfiniteScrollModule,
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
     ReactiveFormsModule,
-    RxReactiveFormsModule
+    RxReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [
     {
