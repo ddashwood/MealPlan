@@ -42,7 +42,8 @@ public class MealPlanController : ControllerBase
             Date = dto.Date,
             LocationId = dto.LocationId,
             MealDescription = dto.MealDescription,
-            PeopleIds = dto.PeopleIds
+            PeopleIds = dto.PeopleIds,
+            Delivery = dto.Delivery
         };
 
         await _mediator.Send(updateRequest);

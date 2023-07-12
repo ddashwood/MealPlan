@@ -39,6 +39,7 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
     private void UpdateExisting(MealPlanEntry existing, SaveMealPlanRequest request)
     {
         existing.MealDescription = request.MealDescription;
+        existing.Delivery = request.Delivery;
 
         var location = new Location { Id = request.LocationId };
         _context.Attach(location);
@@ -68,7 +69,8 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
         var entry = new MealPlanEntry
         {
             Date = request.Date,
-            MealDescription = request.MealDescription
+            MealDescription = request.MealDescription,
+            Delivery = request.Delivery
         };
 
         var location = new Location { Id = request.LocationId };
