@@ -4,7 +4,7 @@ import { MealPlanComponent } from './meal-plan/meal-plan.component';
 import { ViewerRouteGuard } from '../authorisation/viewer-route-guard';
 
 const routes: Routes = [
-  { path: 'mealplan', component: MealPlanComponent, canActivate: [ViewerRouteGuard] },
+  { path: '', component: MealPlanComponent, canActivate: [ViewerRouteGuard] },
 ]
 
 

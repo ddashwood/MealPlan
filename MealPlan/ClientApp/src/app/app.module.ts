@@ -14,7 +14,6 @@ import { ngHttpCachingConfig } from './caching-config';
 import { apiConfigFactory } from './openapi-helpers';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { MealPlanModule } from './meal-plan/meal-plan.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { MealPlanModule } from './meal-plan/meal-plan.module';
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
     AppRoutingModule,
     AuthenticationModule,
-    MealPlanModule
   ],
   providers: [
     {
