@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpRequest } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { NgHttpCachingModule } from 'ng-http-caching';
 
 import { AppComponent } from './app.component';
