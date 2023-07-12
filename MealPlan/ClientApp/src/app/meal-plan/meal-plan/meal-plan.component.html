@@ -2,7 +2,7 @@
 
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <div *ngFor="let entry of mealPlanEntries">
-        <app-meal-plan-entry [entry]="entry" (click)="onSelectEntry(entry)"></app-meal-plan-entry>
+        <meal-plan-entry [entry]="entry" (click)="onSelectEntry(entry)"></meal-plan-entry>
     </div>
 </div>
 
@@ -14,7 +14,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <app-meal-plan-entry-editor #editor [entry]="editingEntry" (close)="onCloseEditor()" (save)="onSave($event)"></app-meal-plan-entry-editor>
+                <meal-plan-entry-editor #editor [entry]="editingEntry" (close)="onCloseEditor()" (save)="onSave($event)"></meal-plan-entry-editor>
             </div>
         </div>
     </div>

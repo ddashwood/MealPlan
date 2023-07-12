@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { MealPlanDto, MealPlanService, MealPlanUpdateDto } from 'src/libs/api-client';
 import { MealPlanEntryEditorComponent } from '../meal-plan-entry-editor/meal-plan-entry-editor.component';
-import { JWTTokenService } from '../services/jwt-token-service/jwttoken.service';
+import { JWTTokenService } from '../../services/jwt-token-service/jwttoken.service';
 
 @Component({
-  selector: 'app-meal-plan',
+  selector: 'meal-plan',
   templateUrl: './meal-plan.component.html',
   styleUrls: ['./meal-plan.component.css']
 })

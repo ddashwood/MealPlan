@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgHttpCachingModule } from 'ng-http-caching';
 
@@ -11,33 +10,25 @@ import { Configuration } from 'src/libs/api-client';
 import { JWTTokenService } from './services/jwt-token-service/jwttoken.service';
 import { UnauthorisedInterceptor } from './authorisation/unauthorised-interceptor';
 import { ViewerRouteGuard } from './authorisation/viewer-route-guard';
-import { MealPlanComponent } from './meal-plan/meal-plan.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MealPlanEntryComponent } from './meal-plan-entry/meal-plan-entry.component';
-import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan-entry-editor.component';
 import { ngHttpCachingConfig } from './caching-config';
 import { apiConfigFactory } from './openapi-helpers';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { MealPlanModule } from './meal-plan/meal-plan.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    MealPlanComponent,
-    MealPlanEntryComponent,
-    MealPlanEntryEditorComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    FormsModule,
-    InfiniteScrollModule,
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
-    ReactiveFormsModule,
     AppRoutingModule,
-    AuthenticationModule
+    AuthenticationModule,
+    MealPlanModule
   ],
   providers: [
     {

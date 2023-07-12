@@ -3,7 +3,7 @@ import { MealPlanDto } from 'src/libs/api-client';
 import { Tooltip } from 'bootstrap';
 
 @Component({
-  selector: 'app-meal-plan-entry',
+  selector: 'meal-plan-entry',
   templateUrl: './meal-plan-entry.component.html',
   styleUrls: ['./meal-plan-entry.component.css']
 })

@@ -5,7 +5,7 @@ import { Observable, tap } from 'rxjs';
 import { LocationService, PersonService, LocationDto, MealPlanDto, MealPlanLocationDto, PersonDto, MealPlanUpdateDto } from 'src/libs/api-client';
 
 @Component({
-  selector: 'app-meal-plan-entry-editor',
+  selector: 'meal-plan-entry-editor',
   templateUrl: './meal-plan-entry-editor.component.html',
   styleUrls: ['./meal-plan-entry-editor.component.css']
 })
