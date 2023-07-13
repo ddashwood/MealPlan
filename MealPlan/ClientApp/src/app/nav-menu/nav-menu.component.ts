@@ -16,14 +16,24 @@ export class NavMenuComponent {
   loggedIn: boolean = false;
   isViewer: boolean = false;
   userName: string | null = null;
-  isExpanded = false;
+  isExpanded: boolean = false;
+  showUserDropdown: boolean = false;
 
   collapse() {
     this.isExpanded = false;
+    this.showUserDropdown = false;
   }
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  // Bootstrap is supposed to handle toggling this dropdown for us. But it
+  // only seems to work intermittently, perhaps because of an interfaction
+  // with some other library, and I can't find the problem, so here we control
+  // the dropdown manually instead.
+  toggleUserDropdown() {
+    this.showUserDropdown = !this.showUserDropdown;
   }
 
   logout() {
