@@ -4,6 +4,7 @@ import { MealPlanComponent } from './meal-plan.component';
 import { MealPlanService } from 'src/libs/api-client';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 describe('MealPlanComponent', () => {
   let component: MealPlanComponent;
@@ -14,7 +15,10 @@ describe('MealPlanComponent', () => {
     mealServiceMock.apiMealPlanGet.and.returnValue(of([]));
 
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule ],
+      imports: [ 
+        ReactiveFormsModule,
+         InfiniteScrollModule
+      ],
       declarations: [ MealPlanComponent ],
       providers: [
         { provide: MealPlanService, useValue: mealServiceMock }
