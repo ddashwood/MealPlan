@@ -358,6 +358,14 @@
           "delivery": {
             "type": "boolean"
           },
+          "otherPeople": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
           "location": {
             "$ref": "#/components/schemas/MealPlanLocationDto"
           },
@@ -436,6 +444,14 @@
           },
           "delivery": {
             "type": "boolean"
+          },
+          "otherPeople": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
           },
           "locationId": {
             "type": "string",

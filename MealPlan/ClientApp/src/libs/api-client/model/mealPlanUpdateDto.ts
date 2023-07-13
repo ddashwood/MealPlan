@@ -15,6 +15,8 @@ export interface MealPlanUpdateDto {
     date?: string;
     mealDescription?: string | null;
     delivery?: boolean;
+    otherPeople?: string | null;
+    notes?: string | null;
     locationId?: string;
     peopleIds?: Array<string> | null;
 }
