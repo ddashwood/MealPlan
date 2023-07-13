@@ -1,4 +1,4 @@
-namespace MealPlan.DTOs.Identity;
+namespace MealPlan.Application.DTOs.Identity;
 
 public class ChangePasswordDto
 {

@@ -1,7 +1,7 @@
 ﻿using MealPlan.Models;
 using Shared.Helpers.Mapping;
 
-namespace MealPlan.DTOs.People;
+namespace MealPlan.Application.DTOs.People;
 
 [MapFrom(typeof(Person))]
 public class PersonDto

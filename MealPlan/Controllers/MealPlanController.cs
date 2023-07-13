@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MealPlan.Application.MealPlan.Commands.SaveMealPlan;
 using MealPlan.Application.MealPlan.Queries.GetMealPlan;
-using MealPlan.DTOs.MealPlan;
+using MealPlan.Application.DTOs.MealPlan;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,16 +37,7 @@ public class MealPlanController : ControllerBase
     public async Task<ActionResult<MealPlanDto>> Put(MealPlanUpdateDto dto)
     {
         // Update
-        var updateRequest = new SaveMealPlanRequest
-        {
-            Date = dto.Date,
-            LocationId = dto.LocationId,
-            MealDescription = dto.MealDescription,
-            PeopleIds = dto.PeopleIds,
-            Delivery = dto.Delivery,
-            OtherPeople = dto.OtherPeople,
-            Notes = dto.Notes
-        };
+        var updateRequest = _mapper.Map<SaveMealPlanRequest>(dto);
 
         await _mediator.Send(updateRequest);
 

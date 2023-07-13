@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MealPlan.Database\MealPlan.Database.csproj" />
     <ProjectReference Include="..\MealPlan.Models\MealPlan.Models.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>

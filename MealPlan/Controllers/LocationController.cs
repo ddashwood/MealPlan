@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MealPlan.Application.Locations.Queries;
-using MealPlan.DTOs.Locations;
+using MealPlan.Application.DTOs.Locations;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

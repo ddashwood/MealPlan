@@ -1,7 +1,7 @@
 ﻿using MealPlan.Models;
 using Shared.Helpers.Mapping;
 
-namespace MealPlan.DTOs.MealPlan;
+namespace MealPlan.Application.DTOs.MealPlan;
 
 public class MealPlanUpdateDto
 {

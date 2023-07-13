@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MealPlan.Application.People.Queries;
-using MealPlan.DTOs.People;
+using MealPlan.Application.DTOs.People;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

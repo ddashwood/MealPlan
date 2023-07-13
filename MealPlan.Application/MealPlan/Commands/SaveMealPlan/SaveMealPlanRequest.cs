@@ -1,7 +1,10 @@
+using MealPlan.Application.DTOs.MealPlan;
 using MediatR;
+using Shared.Helpers.Mapping;
 
 namespace MealPlan.Application.MealPlan.Commands.SaveMealPlan;
 
+[MapFrom(typeof(MealPlanUpdateDto))]
 public class SaveMealPlanRequest : IRequest
 {
     public DateOnly Date { get; set; }

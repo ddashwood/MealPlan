@@ -40,7 +40,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MealPlan.Application\MealPlan.Application.csproj" />
     <ProjectReference Include="..\MealPlan.Database\MealPlan.Database.csproj" />
-    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

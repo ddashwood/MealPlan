@@ -1,6 +1,6 @@
 ﻿using MealPlan.Application.Identity.Commands.ChangePassword;
 using MealPlan.Application.Identity.Queries.Login;
-using MealPlan.DTOs.Identity;
+using MealPlan.Application.DTOs.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
