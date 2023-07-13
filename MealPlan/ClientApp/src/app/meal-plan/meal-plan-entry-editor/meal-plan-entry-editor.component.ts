@@ -24,6 +24,8 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
       locationId: ['', Validators.required],
       description: '',
       delivery: false,
+      otherPeople: '',
+      notes: '',
       people: builder.array([])
     });
   }
@@ -62,7 +64,9 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
     this.formGroup.patchValue({
       locationId: this.entry?.location?.id,
       description: this.entry?.mealDescription,
-      delivery: this.entry?.delivery
+      delivery: this.entry?.delivery,
+      otherPeople: this.entry?.otherPeople,
+      notes: this.entry?.notes
     });
     if (this.people) {
       for (let i = 0; i < this.people.length; i++) {
@@ -87,6 +91,8 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
       mealDescription: this.formGroup.value["description"],
       locationId: this.formGroup.value["locationId"],
       delivery: this.formGroup.value["delivery"],
+      otherPeople: this.formGroup.value["otherPeople"],
+      notes: this.formGroup.value["notes"],
       peopleIds: []
     };
     if(this.people) {

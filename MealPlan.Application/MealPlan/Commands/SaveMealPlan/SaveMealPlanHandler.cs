@@ -40,6 +40,8 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
     {
         existing.MealDescription = request.MealDescription;
         existing.Delivery = request.Delivery;
+        existing.OtherPeople = request.OtherPeople;
+        existing.Notes = request.Notes;
 
         var location = new Location { Id = request.LocationId };
         _context.Attach(location);
@@ -70,7 +72,9 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
         {
             Date = request.Date,
             MealDescription = request.MealDescription,
-            Delivery = request.Delivery
+            Delivery = request.Delivery,
+            OtherPeople = request.OtherPeople,
+            Notes = request.Notes
         };
 
         var location = new Location { Id = request.LocationId };

@@ -30,6 +30,14 @@
                     </label>
                 </div>
             </div>
+            <div class="row mt-1">
+                <div class="col-3">
+                    <label class="form-label" for="otherPeople">Others:</label>
+                </div>
+                <div class="col-9">
+                    <input class="form-control" formControlName="otherPeople" name="other-people" id="other-people">
+                </div>
+            </div>
         </div>
 
         <div class="pb-3">
@@ -52,7 +60,16 @@
                 <span class="fw-bold ps-0 pb-1">Meal Description:</span>
             </div>
             <div class="row">
-                <textarea formControlName="description"></textarea>
+                <textarea class="form-control" formControlName="description"></textarea>
+            </div>
+        </div>
+
+        <div class="pb-3">
+            <div class="row">
+                <span class="ps-0 pb-1">Notes:</span>
+            </div>
+            <div class="row">
+                <input class="form-control" formControlName="notes">
             </div>
         </div>
 
