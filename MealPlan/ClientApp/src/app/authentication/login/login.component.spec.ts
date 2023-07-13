@@ -40,6 +40,8 @@ describe('LoginComponent', () => {
   });
 
   it('should submit the form', () => {
+    identityMock.apiIdentityLoginPost.and.returnValue(of('tkn'));
+
     fixture.nativeElement.querySelector('#username').value = 'user';
     fixture.nativeElement.querySelector('#password').value = 'pw';
 
