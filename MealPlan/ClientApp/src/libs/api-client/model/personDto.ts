@@ -16,5 +16,6 @@ export interface PersonDto {
     name?: string | null;
     foregroundColour?: string | null;
     backgroundColour?: string | null;
+    isDefault?: boolean;
 }
 

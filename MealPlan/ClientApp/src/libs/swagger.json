@@ -486,6 +486,9 @@
           "backgroundColour": {
             "type": "string",
             "nullable": true
+          },
+          "isDefault": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
