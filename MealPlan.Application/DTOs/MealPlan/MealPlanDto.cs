@@ -11,6 +11,7 @@ public class MealPlanDto
     public bool Delivery { get; set; }
     public string? OtherPeople { get; set; }
     public string? Notes { get; set; }
+    public bool IsNew { get; set; }
     public MealPlanLocationDto Location { get; set; } = null!;
     public List<MealPlanPersonDto> People { get; set; } = null!;
 

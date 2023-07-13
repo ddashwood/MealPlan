@@ -37,7 +37,7 @@ internal class GetMealPlanHandler : IRequestHandler<GetMealPlanRequest, IEnumera
             }
             else
             {
-                results.Add(new MealPlanEntry { Date = date });
+                results.Add(new MealPlanEntry { Date = date, IsNew = true });
             }
         }
 

@@ -19,6 +19,7 @@ export interface MealPlanDto {
     delivery?: boolean;
     otherPeople?: string | null;
     notes?: string | null;
+    isNew?: boolean;
     location?: MealPlanLocationDto;
     people?: Array<MealPlanPersonDto> | null;
 }
