@@ -1,14 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MealPlanComponent } from './meal-plan.component';
+import { MealPlanService } from 'src/libs/api-client';
+import { ReactiveFormsModule } from '@angular/forms';
+import { of } from 'rxjs';
 
 describe('MealPlanComponent', () => {
   let component: MealPlanComponent;
   let fixture: ComponentFixture<MealPlanComponent>;
 
   beforeEach(async () => {
+    let mealServiceMock = jasmine.createSpyObj('MealPlanService', ['apiMealPlanGet', 'apiMealPlanPut']);
+    mealServiceMock.apiMealPlanGet.and.returnValue(of([]));
+
     await TestBed.configureTestingModule({
-      declarations: [ MealPlanComponent ]
+      imports: [ ReactiveFormsModule ],
+      declarations: [ MealPlanComponent ],
+      providers: [
+        { provide: MealPlanService, useValue: mealServiceMock }
+      ]
     })
     .compileComponents();
 

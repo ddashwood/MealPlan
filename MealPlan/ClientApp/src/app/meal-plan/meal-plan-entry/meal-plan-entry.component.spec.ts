@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MealPlanEntryComponent } from './meal-plan-entry.component';
+import { MealPlanDto } from 'src/libs/api-client';
 
 describe('MealPlanEntryComponent', () => {
   let component: MealPlanEntryComponent;
@@ -14,6 +15,7 @@ describe('MealPlanEntryComponent', () => {
 
     fixture = TestBed.createComponent(MealPlanEntryComponent);
     component = fixture.componentInstance;
+    component.entry = <MealPlanDto> {};
     fixture.detectChanges();
   });
 
