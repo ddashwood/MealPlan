@@ -72,7 +72,10 @@ export class MealPlanEntryEditorComponent implements OnInit, OnChanges {
       for (let i = 0; i < this.people.length; i++) {
         let person = this.people[i];
         let control = (this.formGroup.controls['people'] as FormArray).controls[i];
-        control.setValue(this.entry.people?.some(p => p.id === person.id));
+        let value = this.entry.isNew ? 
+              this.people[i].isDefault :
+              this.entry.people?.some(p => p.id === person.id);
+        control.setValue(value);
       }
     }
   }
