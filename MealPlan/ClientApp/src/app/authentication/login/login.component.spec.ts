@@ -67,6 +67,19 @@ describe('LoginComponent', () => {
     expect(authMock.setToken).toHaveBeenCalledOnceWith('tkn', false);
   });
 
+  it('should set the token and remember me', () => {
+    identityMock.apiIdentityLoginPost.and.returnValue(of('tkn'));
+
+    fixture.nativeElement.querySelector('#rememberMe').setAttribute('checked', 'true');
+    fixture.nativeElement.querySelector('#rememberMe').dispatchEvent(new MouseEvent('click'));
+
+    const button = fixture.nativeElement.querySelector('button');
+    button.click();
+    fixture.detectChanges();
+
+    expect(authMock.setToken).toHaveBeenCalledOnceWith('tkn', true);
+  });
+
   it('should go to the meal plan after login', () => {
     identityMock.apiIdentityLoginPost.and.returnValue(of('tkn'));
 
@@ -88,7 +101,7 @@ describe('LoginComponent', () => {
     button.click();
     fixture.detectChanges();
 
-    expect (component.errorMessage).toEqual("The username/password is not correct");
+    expect (fixture.nativeElement.querySelector('#error-message').innerText).toEqual("The username/password is not correct");
   });
 
   it('should show an error message for failure', () => {
@@ -103,7 +116,7 @@ describe('LoginComponent', () => {
     button.click();
     fixture.detectChanges();
 
-    expect (component.errorMessage).toEqual("It went wrong");
+    expect (fixture.nativeElement.querySelector('#error-message').innerText).toEqual("It went wrong");
   });
 
   it('should disable the logon button if no username', () => {
