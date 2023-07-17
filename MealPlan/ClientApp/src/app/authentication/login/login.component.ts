@@ -17,7 +17,7 @@ export class LoginComponent {
   errorMessage: string | null = null;
 
   onLogin() {
-    this.identityService.apiIdentityLoginPost(this.loginDetails)
+    this.identityService.apiIdentityLoginPost(this.loginDetails, undefined, undefined, { httpHeaderAccept: 'text/plain' })
       .subscribe({ next: results => {
         this.authService.setToken(results, this.rememberMe);
         this.router.navigate(['/mealplan']);
