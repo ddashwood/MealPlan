@@ -89,6 +89,23 @@ describe('Login component', () => {
         cy.get('@nav').should('have.been.calledWith', ['/mealplan']);
     });
 
+    it('should disable the button when username/password is missing', () => {
+        cy.mount(LoginComponent, {
+            imports: [FormsModule, HttpClientModule],
+        });
+
+        cy.get('[data-mealplan-login-button]').as('button');
+
+        cy.get('@button').should('be.disabled');
+
+        cy.get('[data-mealplan-login-id]').type('user');
+        cy.get('@button').should('be.disabled');
+
+        cy.get('[data-mealplan-login-id]').clear();
+        cy.get('[data-mealplan-login-password]').type('pw');
+        cy.get('@button').should('be.disabled');
+    });
+
     // To do:
     // - Error for wrong username/password
     // - Error for failure when submitting
