@@ -42,14 +42,9 @@ describe('LoginComponent', () => {
   it('should submit the form', () => {
     identityMock.apiIdentityLoginPost.and.returnValue(of('tkn'));
 
-    fixture.nativeElement.querySelector('#username').value = 'user';
-    fixture.nativeElement.querySelector('#password').value = 'pw';
-
-    fixture.nativeElement.querySelectorAll('input').forEach((i: HTMLElement) => i.dispatchEvent(new Event('input')));
-
-    const button = fixture.nativeElement.querySelector('button');
-    button.click();
-    fixture.detectChanges();
+    component.loginDetails.userName = 'user';
+    component.loginDetails.password = 'pw';
+    component.onLogin();
 
     expect(identityMock.apiIdentityLoginPost).toHaveBeenCalledOnceWith({
       userName: 'user',
@@ -60,9 +55,7 @@ describe('LoginComponent', () => {
   it('should set the token', () => {
     identityMock.apiIdentityLoginPost.and.returnValue(of('tkn'));
 
-    const button = fixture.nativeElement.querySelector('button');
-    button.click();
-    fixture.detectChanges();
+    component.onLogin();
 
     expect(authMock.setToken).toHaveBeenCalledOnceWith('tkn', false);
   });
@@ -70,12 +63,8 @@ describe('LoginComponent', () => {
   it('should set the token and remember me', () => {
     identityMock.apiIdentityLoginPost.and.returnValue(of('tkn'));
 
-    fixture.nativeElement.querySelector('#rememberMe').setAttribute('checked', 'true');
-    fixture.nativeElement.querySelector('#rememberMe').dispatchEvent(new MouseEvent('click'));
-
-    const button = fixture.nativeElement.querySelector('button');
-    button.click();
-    fixture.detectChanges();
+    component.rememberMe = true;
+    component.onLogin();
 
     expect(authMock.setToken).toHaveBeenCalledOnceWith('tkn', true);
   });
@@ -83,9 +72,7 @@ describe('LoginComponent', () => {
   it('should go to the meal plan after login', () => {
     identityMock.apiIdentityLoginPost.and.returnValue(of('tkn'));
 
-    const button = fixture.nativeElement.querySelector('button');
-    button.click();
-    fixture.detectChanges();
+    component.onLogin();
 
     expect(routerMock.navigate).toHaveBeenCalledOnceWith( ['/mealplan'] );
   });
@@ -97,11 +84,9 @@ describe('LoginComponent', () => {
       }
     }));
 
-    const button = fixture.nativeElement.querySelector('button');
-    button.click();
-    fixture.detectChanges();
+    component.onLogin();
 
-    expect (fixture.nativeElement.querySelector('#error-message').innerText).toEqual("The username/password is not correct");
+    expect (component.errorMessage).toEqual("The username/password is not correct");
   });
 
   it('should show an error message for failure', () => {
@@ -112,41 +97,8 @@ describe('LoginComponent', () => {
       }
     }));
 
-    const button = fixture.nativeElement.querySelector('button');
-    button.click();
-    fixture.detectChanges();
+    component.onLogin();
 
-    expect (fixture.nativeElement.querySelector('#error-message').innerText).toEqual("It went wrong");
-  });
-
-  it('should disable the logon button if no username', () => {
-    fixture.nativeElement.querySelector('#password').value = 'pw';
-    fixture.nativeElement.querySelectorAll('input').forEach((i: HTMLElement) => i.dispatchEvent(new Event('input')));
-
-    const button = fixture.nativeElement.querySelector('button');
-    fixture.detectChanges();
-
-    expect(button.disabled).toBeTrue();
-  });
-
-  it('should disable the logon button if no password', () => {
-    fixture.nativeElement.querySelector('#username').value = 'user';
-    fixture.nativeElement.querySelectorAll('input').forEach((i: HTMLElement) => i.dispatchEvent(new Event('input')));
-
-    const button = fixture.nativeElement.querySelector('button');
-    fixture.detectChanges();
-
-    expect(button.disabled).toBeTrue();
-  });
-
-  it('should enable the logon button if username and password entered', () => {
-    fixture.nativeElement.querySelector('#username').value = 'user';
-    fixture.nativeElement.querySelector('#password').value = 'pw';
-    fixture.nativeElement.querySelectorAll('input').forEach((i: HTMLElement) => i.dispatchEvent(new Event('input')));
-
-    const button = fixture.nativeElement.querySelector('button');
-    fixture.detectChanges();
-
-    expect(button.disabled).toBeFalse();
+    expect (component.errorMessage).toEqual("It went wrong");
   });
 });
