@@ -6,6 +6,7 @@ import { MealPlanEntryEditorComponent } from './meal-plan-entry-editor/meal-plan
 import { ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MealPlanRoutingModule } from './meal-plan-routing.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,9 @@ import { MealPlanRoutingModule } from './meal-plan-routing.module';
     CommonModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    MealPlanRoutingModule
+    MealPlanRoutingModule,
+
+    MatToolbarModule
   ]
 })
 export class MealPlanModule { }

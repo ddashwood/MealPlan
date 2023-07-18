@@ -1,4 +1,8 @@
-<form (submit)="onLogin()" #form="ngForm">
+<mat-toolbar color="primary">
+    <span>Meal Plan - Login</span>
+</mat-toolbar>
+
+<form (submit)="onLogin()" #form="ngForm" class="mt-4">
     <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input class="form-control" required data-mealplan-login-id id="username" name="username" [(ngModel)]="loginDetails.userName" />
@@ -16,5 +20,5 @@
     <div id="error-message" data-mealplan-login-message class="mb-3 text-danger">
         {{errorMessage}}
     </div>
-    <button data-mealplan-login-button [disabled]="form.invalid" type="submit" class="btn btn-primary">Login</button>
+    <button data-mealplan-login-button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">Login</button>
 </form>

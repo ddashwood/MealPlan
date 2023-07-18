@@ -5,6 +5,8 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -18,7 +20,10 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
     FormsModule,
     ReactiveFormsModule,
     RxReactiveFormsModule,
-    AuthenticationRoutingModule
+    AuthenticationRoutingModule,
+
+    MatToolbarModule,
+    MatButtonModule
   ]
 })
 export class AuthenticationModule { }

@@ -1,4 +1,6 @@
-<h1>Meal Plan</h1>
+<mat-toolbar color="primary">
+    <span>Meal Plan</span>
+</mat-toolbar>
 
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <div *ngFor="let entry of mealPlanEntries">
