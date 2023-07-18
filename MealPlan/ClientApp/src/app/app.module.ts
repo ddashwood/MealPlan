@@ -14,6 +14,7 @@ import { ngHttpCachingConfig } from './caching-config';
 import { apiConfigFactory } from './openapi-helpers';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
     AppRoutingModule,
     AuthenticationModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

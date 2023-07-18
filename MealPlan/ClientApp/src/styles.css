@@ -23,3 +23,5 @@ input:not([type=checkbox]):not([type=radio]).ng-invalid.ng-dirty:not(form),
 input:not([type=checkbox]):not([type=radio]).ng-invalid.ng-touched:not(form) {
   border-left: 5px solid red;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
