@@ -32,7 +32,7 @@ describe('Login component', () => {
 
         cy.get('[data-mealplan-login-id]').type('user');
         cy.get('[data-mealplan-login-password]').type('pw');
-        cy.get('[data-mealplan-login-button]').click();
+        cy.get('[data-mealplan-login-button]').should('not.be.disabled').click();
 
         cy.wait('@post')
             .its('request.body').should('deep.include', { userName: 'user', password: 'pw'})
@@ -70,7 +70,7 @@ describe('Login component', () => {
         cy.get('[data-mealplan-login-id]').type('user');
         cy.get('[data-mealplan-login-password]').type('pw');
         cy.get('[data-mealplan-login-rememberme]').check();
-        cy.get('[data-mealplan-login-button]').click();
+        cy.get('[data-mealplan-login-button]').should('not.be.disabled').click();
 
         cy.wait('@post')
             .its('request.body').should('deep.include', { userName: 'user', password: 'pw'})
@@ -88,4 +88,9 @@ describe('Login component', () => {
         });
         cy.get('@nav').should('have.been.calledWith', ['/mealplan']);
     });
+
+    // To do:
+    // - Error for wrong username/password
+    // - Error for failure when submitting
+    // - Check status of button when username/password missing
 });
