@@ -54,7 +54,7 @@ describe('LoginComponent', () => {
     expect(identityMock.apiIdentityLoginPost).toHaveBeenCalledOnceWith({
       userName: 'user',
       password: 'pw'
-    });
+    }, undefined, undefined, { httpHeaderAccept: 'text/plain' });
   });
 
   it('should set the token', () => {
