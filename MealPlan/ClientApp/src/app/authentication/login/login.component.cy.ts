@@ -40,11 +40,11 @@ describe('Login component', () => {
             .its('request.body').should('deep.include', { userName: 'user', password: 'pw'})
             .then(() => {
                 cy.getAllLocalStorage().then((l) => {
-                    expect(l).to.not.haveOwnProperty('http://localhost:8080');
+                    expect(l).to.not.haveOwnProperty(Cypress.config().baseUrl ?? '');
                 });
                 cy.getAllSessionStorage().then((s) => {
                     expect(s).to.deep.equal({
-                        'http://localhost:8080': {
+                        [Cypress.config().baseUrl ?? '']: {
                             'token': jwt
                         }
                     });
