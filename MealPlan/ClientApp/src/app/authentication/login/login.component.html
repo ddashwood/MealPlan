@@ -13,7 +13,7 @@
           Remember Me
         </label>
       </div>
-    <div id="error-message" class="mb-3 text-danger">
+    <div id="error-message" data-mealplan-login-message class="mb-3 text-danger">
         {{errorMessage}}
     </div>
     <button data-mealplan-login-button [disabled]="form.invalid" type="submit" class="btn btn-primary">Login</button>

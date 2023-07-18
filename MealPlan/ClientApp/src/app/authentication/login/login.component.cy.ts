@@ -106,8 +106,64 @@ describe('Login component', () => {
         cy.get('@button').should('be.disabled');
     });
 
-    // To do:
-    // - Error for wrong username/password
-    // - Error for failure when submitting
-    // - Check status of button when username/password missing
+    it('should display a message when password is wrong', () => {
+        cy.mount(LoginComponent, {
+            imports: [FormsModule, HttpClientModule],
+        }).then(m => {
+            cy.stub((m.component as any).router,'navigate').as('nav');
+        });
+        
+        cy.intercept('POST', '/api/Identity/Login', {
+            statusCode: 401
+        }).as('post');
+
+        cy.get('[data-mealplan-login-id]').type('user');
+        cy.get('[data-mealplan-login-password]').type('pw');
+        cy.get('[data-mealplan-login-button]').should('not.be.disabled').click();
+
+        cy.wait('@post')
+            .its('request.body').should('deep.include', { userName: 'user', password: 'pw'})
+            .then(() => {
+                cy.getAllLocalStorage().then((l) => {
+                    expect(l).to.not.haveOwnProperty(Cypress.config().baseUrl ?? '');
+                });
+                cy.getAllSessionStorage().then((s) => {
+                    expect(s).to.not.haveOwnProperty(Cypress.config().baseUrl ?? '');
+                });
+        });
+        cy.get('@nav').should('not.have.been.called');
+        cy.get('[data-mealplan-login-message]').should(div => {
+            expect(div.text().trim()).to.equal('The username/password is not correct');
+        });
+    });
+
+    it('should display a message on failure', () => {
+        cy.mount(LoginComponent, {
+            imports: [FormsModule, HttpClientModule],
+        }).then(m => {
+            cy.stub((m.component as any).router,'navigate').as('nav');
+        });
+        
+        cy.intercept('POST', '/api/Identity/Login', {
+            statusCode: 500
+        }).as('post');
+
+        cy.get('[data-mealplan-login-id]').type('user');
+        cy.get('[data-mealplan-login-password]').type('pw');
+        cy.get('[data-mealplan-login-button]').should('not.be.disabled').click();
+
+        cy.wait('@post')
+            .its('request.body').should('deep.include', { userName: 'user', password: 'pw'})
+            .then(() => {
+                cy.getAllLocalStorage().then((l) => {
+                    expect(l).to.not.haveOwnProperty(Cypress.config().baseUrl ?? '');
+                });
+                cy.getAllSessionStorage().then((s) => {
+                    expect(s).to.not.haveOwnProperty(Cypress.config().baseUrl ?? '');
+                });
+        });
+        cy.get('@nav').should('not.have.been.called');
+        cy.get('[data-mealplan-login-message]').should('contain.text', '500 Internal Server Error');
+        });
+    });
 });
