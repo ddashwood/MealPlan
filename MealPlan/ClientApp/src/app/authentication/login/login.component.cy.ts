@@ -164,6 +164,5 @@ describe('Login component', () => {
         });
         cy.get('@nav').should('not.have.been.called');
         cy.get('[data-mealplan-login-message]').should('contain.text', '500 Internal Server Error');
-        });
     });
 });
