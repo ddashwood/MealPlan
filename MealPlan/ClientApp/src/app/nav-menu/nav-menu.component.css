@@ -20,3 +20,13 @@ html {
 .link-active {
   background-color: lightgray;
 }
+
+mat-toolbar.toolbar-auto-height {
+  /* Toolbars are marked as single-line unless we use <mat-toolbar-row>
+   * But we can't use <mat-toolbar-row> because we only want rows on
+   * small screens. This CSS ensures the display of (single-line) toolbars
+   * works even when they actually contain more than one line
+   */
+
+  height: auto;
+}

@@ -1,35 +1,29 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a mat-button (click)="collapse()" [routerLink]="['/']">Home</a>
-          </li>
-          <li [routerLinkActive]="['link-active']" *ngIf="isViewer">
-            <a mat-button (click)="collapse()" [routerLink]="['/mealplan']">Meal Plan</a>
-          </li>
-          <li [routerLinkActive]="['link-active']" *ngIf="!loggedIn">
-            <a mat-button class="nav-link text-dark" (click)="collapse()" [routerLink]="['/login']">Login</a>
-          </li>
+  <mat-toolbar fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="start start" fxLayoutAlign.gt-sm="end center" class="toolbar-auto-height">
+    <button fxShow fxHide.gt-sm mat-button type="button" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-          <li>
-            <button mat-button [matMenuTriggerFor]="dropdown" *ngIf="loggedIn">
-              <mat-icon>person</mat-icon>
-            </button>
-          </li>
-
-        </ul>
+    <div [fxShow]="isExpanded" fxShow.gt-sm="true" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="start start" fxLayoutAlign.gt-sm="end center">
+      <div [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+        <a mat-button (click)="collapse()" [routerLink]="['/']">Home</a>
+      </div>
+      <div [routerLinkActive]="['link-active']" *ngIf="isViewer">
+        <a mat-button (click)="collapse()" [routerLink]="['/mealplan']">Meal Plan</a>
+      </div>
+      <div [routerLinkActive]="['link-active']" *ngIf="!loggedIn">
+        <a mat-button (click)="collapse()" [routerLink]="['/login']">Login</a>
+      </div>
+      <div *ngIf="loggedIn">
+        <button mat-button [matMenuTriggerFor]="dropdown">
+          <mat-icon>person</mat-icon>
+        </button>
       </div>
     </div>
-  </nav>
+  </mat-toolbar>
 </header>
 
 <mat-menu #dropdown="matMenu">
-      <a [routerLinkActive]="['link-active']" mat-menu-item (click)="collapse()" [routerLink]="['/change-password']">Change Password</a>
-      <button mat-menu-item href="javascript:void(0);" (click)="logout(); collapse();">Logout {{userName}}</button>
+  <a [routerLinkActive]="['link-active']" mat-menu-item (click)="collapse()" [routerLink]="['/change-password']">Change Password</a>
+  <button mat-menu-item href="javascript:void(0);" (click)="logout(); collapse();">Logout {{userName}}</button>
 </mat-menu>
