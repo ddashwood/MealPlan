@@ -2,23 +2,34 @@
     <span>Meal Plan - Login</span>
 </mat-toolbar>
 
-<form (submit)="onLogin()" #form="ngForm" class="mt-4">
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input class="form-control" required data-mealplan-login-id id="username" name="username" [(ngModel)]="loginDetails.userName" />
+<form (submit)="onLogin()" #form="ngForm">
+    <div>
+        <mat-form-field fxFlex="100">
+            <mat-label>Username</mat-label>
+            <input matInput required data-mealplan-login-id id="username" name="username"
+                [(ngModel)]="loginDetails.userName" />
+        </mat-form-field>
     </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" required data-mealplan-login-password id="password" name="password" [(ngModel)]="loginDetails.password" />
+
+    <div>
+        <mat-form-field fxFlex="100">
+            <mat-label>Password</mat-label>
+            <input matInput required type="password" data-mealplan-login-password id="password" name="password"
+                [(ngModel)]="loginDetails.password" />
+        </mat-form-field>
     </div>
-    <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" data-mealplan-login-rememberme id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe">
-        <label class="form-check-label" for="rememberMe">
-          Remember Me
-        </label>
-      </div>
-    <div id="error-message" data-mealplan-login-message class="mb-3 text-danger">
-        {{errorMessage}}
+    <div>
+        <mat-checkbox data-mealplan-login-rememberme id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe">
+            Remember Me
+        </mat-checkbox>
     </div>
-    <button data-mealplan-login-button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">Login</button>
+
+    <div id="error-message" data-mealplan-login-message *ngIf="errorMessage">
+        <mat-error>{{errorMessage}}</mat-error>
+    </div>
+
+    <div class="logon-button-container">
+        <button data-mealplan-login-button [disabled]="form.invalid" type="submit" mat-raised-button
+            color="primary">Login</button>
+    </div>
 </form>
