@@ -17,6 +17,8 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu'
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { MatMenuModule } from '@angular/material/menu'
 
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     {

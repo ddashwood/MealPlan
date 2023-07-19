@@ -3,41 +3,33 @@
     <div class="container">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
         aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
-        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 18L20 18" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-          <path d="M4 12L20 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-          <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+        <mat-icon>menu</mat-icon>
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" (click)="collapse()" [routerLink]="['/']">Home</a>
+          <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a mat-button (click)="collapse()" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isViewer">
-            <a class="nav-link text-dark" (click)="collapse()" [routerLink]="['/mealplan']">Meal Plan</a>
+          <li [routerLinkActive]="['link-active']" *ngIf="isViewer">
+            <a mat-button (click)="collapse()" [routerLink]="['/mealplan']">Meal Plan</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!loggedIn">
-            <a class="nav-link text-dark" (click)="collapse()" [routerLink]="['/login']">Login</a>
+          <li [routerLinkActive]="['link-active']" *ngIf="!loggedIn">
+            <a mat-button class="nav-link text-dark" (click)="collapse()" [routerLink]="['/login']">Login</a>
           </li>
-          <li class="nav-item dropdown" *ngIf="loggedIn">
-            <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-nobs-toggle="dropdown"
-                  (click)="toggleUserDropdown()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-              </svg>
-            </a>
-            <ul class="dropdown-menu show" aria-labelledby="navbarDropdown" *ngIf="showUserDropdown">
-              <li [routerLinkActive]="['link-active']">
-                <a class="dropdown-item text-dark" (click)="collapse()" [routerLink]="['/change-password']">Change Password</a>
-              </li>
-              <li>
-                <a class="dropdown-item text-dark" href="javascript:void(0);" (click)="logout(); collapse();">Logout {{userName}}</a>
-              </li>
-            </ul>
+
+          <li>
+            <button mat-button [matMenuTriggerFor]="dropdown" *ngIf="loggedIn">
+              <mat-icon>person</mat-icon>
+            </button>
           </li>
+
         </ul>
       </div>
     </div>
   </nav>
 </header>
+
+<mat-menu #dropdown="matMenu">
+      <a [routerLinkActive]="['link-active']" mat-menu-item (click)="collapse()" [routerLink]="['/change-password']">Change Password</a>
+      <button mat-menu-item href="javascript:void(0);" (click)="logout(); collapse();">Logout {{userName}}</button>
+</mat-menu>
