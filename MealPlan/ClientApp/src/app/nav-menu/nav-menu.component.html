@@ -32,6 +32,9 @@
                 <a class="dropdown-item text-dark" (click)="collapse()" [routerLink]="['/change-password']">Change Password</a>
               </li>
               <li>
+                <a class="dropdown-item text-dark" href="javascript:void(0);" (click)="subscribe(); collapse();">Get Notifications</a>
+              </li>
+              <li>
                 <a class="dropdown-item text-dark" href="javascript:void(0);" (click)="logout(); collapse();">Logout {{userName}}</a>
               </li>
             </ul>
