@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^16.1.6",
     "@angular/platform-server": "^16.1.6",
     "@angular/router": "^16.1.6",
+    "@angular/service-worker": "^16.1.6",
     "@rxweb/reactive-form-validators": "^13.0.1",
     "@types/bootstrap": "^5.2.3",
     "bootstrap": "^5.2.3",
