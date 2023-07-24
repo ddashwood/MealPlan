@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JWTTokenService } from '../services/jwt-token-service/jwttoken.service';
 
 @Injectable()
-export class ViewerRouteGuard implements CanActivate {
+export class ViewerRouteGuard  {
     constructor(private tokenService: JWTTokenService) {
     }
 
