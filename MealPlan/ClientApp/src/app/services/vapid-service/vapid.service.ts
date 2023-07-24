@@ -20,7 +20,7 @@ export class VapidService {
                 alert('Subscription successful');
               },
               error: (error) => {
-                alert('Error subscribing:\n\n' + error);
+                alert('Error subscribing:\n\n' + error.message);
               }
             });
           })
