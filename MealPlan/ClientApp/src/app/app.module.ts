@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgHttpCachingModule } from 'ng-http-caching';
 
@@ -14,7 +14,6 @@ import { ngHttpCachingConfig } from './caching-config';
 import { apiConfigFactory } from './openapi-helpers';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -28,12 +27,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     NgHttpCachingModule.forRoot(ngHttpCachingConfig),
     AppRoutingModule,
     AuthenticationModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: true, // !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
   ],
   providers: [
     {

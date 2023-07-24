@@ -27,9 +27,7 @@
               "oidc-client"
             ],
             "assets": [
-              "src/assets",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -37,9 +35,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            ]
           },
           "configurations": {
             "production": {
@@ -101,9 +97,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/assets",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
@@ -125,8 +119,7 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": true,
-              "buildOptimizer": true
+              "vendorChunk": true
             },
             "production": {
               "optimization": true,
@@ -134,14 +127,14 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "vendorChunk": false
             }
           }
         }
       }
     }
   },
+  "defaultProject": "MealPlan",
   "cli": {
     "analytics": false
   }
