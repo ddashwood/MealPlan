@@ -1,6 +1,9 @@
-﻿namespace MealPlan.Application.DTOs.Vapid;
+﻿using MealPlan.Models.Vapid;
+using Shared.Helpers.Mapping;
 
+namespace MealPlan.Application.DTOs.Vapid;
 
+[MapFrom(typeof(VapidSubscription), reverseMap: true)]
 public class SubscriptionDto
 {
     public string Endpoint { get; set; } = "";

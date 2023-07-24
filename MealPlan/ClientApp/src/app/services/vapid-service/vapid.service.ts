@@ -11,16 +11,27 @@ export class VapidService {
   { }
 
   public subscribe() : void {
-    this.vapidKeyService.apiVapidPublicKeyGet().subscribe(
-      key => {
+    this.vapidKeyService.apiVapidPublicKeyGet().subscribe({
+      next: key => {
         this.swPush.requestSubscription({serverPublicKey: key})
           .then(sub => {
-            this.vapidSubscribeService.apiVapidSubscriptionPost(sub as SubscriptionDto).subscribe(() => {});
+            this.vapidSubscribeService.apiVapidSubscriptionPost(sub as SubscriptionDto).subscribe({
+              next: () => {
+                alert('Subscription successful');
+              },
+              error: (error) => {
+                alert('Error subscribing:\n\n' + error);
+              }
+            });
           })
           .catch(err => {
-            console.error('Could not subscribe to notifications', err)
+            alert('Could not subscribe to notifications.\n\n' + err.message);
           });
+      },
+
+      error: error => {
+        alert('Failed to get subscription key: ' + error);
       }
-    )
+    });
   }
 }
