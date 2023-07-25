@@ -31,6 +31,11 @@ public class MealPlanContext : IdentityDbContext<ApplicationUser, ApplicationRol
     {
         base.OnModelCreating(builder);
 
+        builder.Entity<ApplicationUser>(entity =>
+        {
+            entity.HasMany(e => e.VapidSubscriptions).WithOne().HasForeignKey(s => s.UserId);
+        });
+
         builder.Entity<MealPlanEntry>(entity =>
         {
             entity.HasKey(e => e.Date);
