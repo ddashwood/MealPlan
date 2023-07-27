@@ -33,6 +33,11 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
         var client = new WebPushClient();
         foreach (var subscription in await _context.VapidSubscriptions.ToListAsync())
         {
+            if (subscription.UserId == notification.UserId)
+            {
+                continue; // No need to notify the same user that made the change
+            }
+
             try
             {
                 var vapidNotification = new NotificationContainer
