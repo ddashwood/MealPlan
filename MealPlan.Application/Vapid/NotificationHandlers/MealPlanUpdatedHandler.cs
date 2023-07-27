@@ -19,6 +19,7 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
     private readonly MealPlanContext _context;
     private readonly IConfiguration _configuration;
     private readonly IServiceScope _scope;
+    private readonly NotificationsConfiguration _config;
     private bool _keepScope;
 
     private static Action<MealPlanUpdatedHandler> _sendNotificationsWithDebounce = null!;
@@ -30,15 +31,16 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
         _configuration = configuration;
         _scope = serviceProvider.CreateScope();  // Create a new scope which gets disposed only when the debouncer has finished
 
+        _config = new();
+        configuration.GetSection("Notifications").Bind(_config);
+
         if (_sendNotificationsWithDebounce == null)
         {
-            var config = new NotificationsConfiguration();
-            configuration.GetSection("Notifications").Bind(config);
 
             _sendNotificationsWithDebounce = DebounceGenerator(async handler =>
             {
                 await handler.SendNotifications();
-            }, config.DelayBeforeSendingInSeconds * 1000);
+            }, _config.DelayBeforeSendingInSeconds * 1000);
         }
     }
 
@@ -55,12 +57,20 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
             DateTime = DateTime.UtcNow
         };
 
-        _context.UnprocessedNotifications.Add(unprocessed);
-        await _context.SaveChangesAsync();
+        if (!_config.PreventNotifications)
+        {
+            _context.UnprocessedNotifications.Add(unprocessed);
+            await _context.SaveChangesAsync();
 
-        _sendNotificationsWithDebounce(this);
+            _sendNotificationsWithDebounce(this);
+        }
     }
 
+    // N.b. - not scalable!
+    // If we ever have more than one server (unlikely!) then this will fire after the elapsed time
+    // has passed without changes on one server, even if changes have been made on another server.
+    // To fix - check for any notifications with a DateTime within the DelayBeforeSendingInSeconds
+    // from the current UTC DateTime.
     private async Task SendNotifications()
     {
         try
