@@ -82,7 +82,7 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
                 }
 
                 var updaters = notificationsFromOtherUsers.Select(n => n.Username).Distinct();
-                string updater = updaters.Count() > 1 ? "multiple peole" : updaters.Single();
+                string updater = updaters.Count() > 1 ? "multiple peole" : FirstCharToUpper(updaters.Single());
 
                 var firstDate = notificationsFromOtherUsers.Select(n => n.AlteredDate).Min();
                 var lastDate = notificationsFromOtherUsers.Select(n => n.AlteredDate).Max();
@@ -171,6 +171,16 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
                     }
                 }, TaskScheduler.Default);
         };
+    }
+
+    private string FirstCharToUpper(string input)
+    {
+        switch (input)
+        {
+            case null: return "";
+            case "": return "";
+            default: return input[0].ToString().ToUpper() + input.Substring(1);
+        }
     }
 
     public void Dispose()
