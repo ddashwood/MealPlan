@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { MealPlanDto, MealPlanService, MealPlanUpdateDto } from 'src/libs/api-client';
 import { MealPlanEntryEditorComponent } from '../meal-plan-entry-editor/meal-plan-entry-editor.component';
 import { JWTTokenService } from '../../services/jwt-token-service/jwttoken.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'meal-plan',
   templateUrl: './meal-plan.component.html',
   styleUrls: ['./meal-plan.component.css']
 })
-export class MealPlanComponent implements OnInit {
+export class MealPlanComponent implements OnInit, OnDestroy {
   mealPlanEntries!: MealPlanDto[];
   editingEntry?: MealPlanDto;
 
@@ -17,6 +18,8 @@ export class MealPlanComponent implements OnInit {
   private endDate: Date;
   private modal: Modal = null!;
   private scrolling: boolean = false;
+
+  private subscriptions : Subscription[] = [];
 
   @ViewChild(MealPlanEntryEditorComponent) editor:MealPlanEntryEditorComponent = null!;
 
@@ -26,8 +29,9 @@ export class MealPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mealPlanService.apiMealPlanGet(this.dateToString(this.startDate), this.dateToString(this.endDate))
+    let subscription = this.mealPlanService.apiMealPlanGet(this.dateToString(this.startDate), this.dateToString(this.endDate))
         .subscribe(data => this.mealPlanEntries = data);
+    this.subscriptions.push(subscription);
   }
 
   private addDays(date: Date, days: number) {
@@ -54,8 +58,9 @@ export class MealPlanComponent implements OnInit {
 
       console.log(`Scrolling from ${newStartDate} to ${this.endDate}`);
 
-      this.mealPlanService.apiMealPlanGet(this.dateToString(newStartDate), this.dateToString(this.endDate))
+      let subscription = this.mealPlanService.apiMealPlanGet(this.dateToString(newStartDate), this.dateToString(this.endDate))
           .subscribe(data => this.mealPlanEntries.push(...data));
+      this.subscriptions.push(subscription);
     }
     finally
     {
@@ -83,7 +88,7 @@ export class MealPlanComponent implements OnInit {
   }
 
   public onSave(saveData: MealPlanUpdateDto) {
-    this.mealPlanService.apiMealPlanPut(saveData).subscribe(entry => {
+    let subscribtion = this.mealPlanService.apiMealPlanPut(saveData).subscribe(entry => {
       let existingIndex = this.mealPlanEntries.findIndex(e => e.date === entry.date);
 
       if (existingIndex === -1) {
@@ -94,5 +99,12 @@ export class MealPlanComponent implements OnInit {
         this.mealPlanEntries[existingIndex] = entry;
       }
     });
+    this.subscriptions.push(subscribtion);
+  }
+
+  ngOnDestroy(): void {
+    for (let subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
   }
 }
