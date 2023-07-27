@@ -1,6 +1,7 @@
 ﻿using MealPlan.Database.Contexts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MealPlan.Application.Vapid.Commands;
 

@@ -11,6 +11,15 @@ export class VapidService {
   { }
 
   public subscribe() : void {
+    if (!window.Notification) {
+      alert ('Notifications are not supported by the browser');
+      return;
+    }
+
+    if (window.Notification.permission === 'denied') {
+      alert ('You have already denied notifications - please allow in  Settings first');
+    }
+
     this.vapidKeyService.apiVapidPublicKeyGet().subscribe({
       next: key => {
         this.swPush.requestSubscription({serverPublicKey: key})

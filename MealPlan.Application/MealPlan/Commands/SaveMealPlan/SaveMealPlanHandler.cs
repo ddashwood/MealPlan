@@ -1,18 +1,21 @@
-using System.Runtime.CompilerServices;
+using MealPlan.Application.MealPlan.Notifications;
 using MealPlan.Database.Contexts;
 using MealPlan.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MealPlan.Application.MealPlan.Commands.SaveMealPlan;
 
 public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
 {
     private readonly MealPlanContext _context;
+    private readonly IMediator _mediator;
 
-    public SaveMealPlanHandler(MealPlanContext context)
+    public SaveMealPlanHandler(MealPlanContext context, IMediator mediator)
     {
         _context = context;
+        _mediator = mediator;
     }
 
     public async Task Handle(SaveMealPlanRequest request, CancellationToken cancellationToken)
@@ -34,6 +37,10 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
         // We have attached incomplete entities, so we need to clear them
         // to ensure they aren't returned from future queries
         _context.ChangeTracker.Clear();
+
+
+        var notification = new MealPlanUpdatedNotification { Date = request.Date };
+        await _mediator.Publish(notification);
     }
 
     private void UpdateExisting(MealPlanEntry existing, SaveMealPlanRequest request)
