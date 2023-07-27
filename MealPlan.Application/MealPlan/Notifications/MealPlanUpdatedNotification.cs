@@ -6,4 +6,5 @@ public class MealPlanUpdatedNotification : INotification
 {
     public DateOnly Date { get; set; }
     public string UserId { get; set; } = "";
+    public string UserName { get; set; } = "";
 }

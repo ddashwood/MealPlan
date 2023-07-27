@@ -16,6 +16,7 @@ public class MealPlanContext : IdentityDbContext<ApplicationUser, ApplicationRol
     public DbSet<Person> People => Set<Person>();
     public DbSet<MealPlanEntry> MealPlanEntries => Set<MealPlanEntry>();
     public DbSet<VapidSubscription> VapidSubscriptions => Set<VapidSubscription>();
+    public DbSet<UnprocessedNotification> UnprocessedNotifications => Set<UnprocessedNotification>();
 
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

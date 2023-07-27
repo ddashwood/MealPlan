@@ -42,16 +42,19 @@ public class MealPlanController : ControllerBase
     public async Task<ActionResult<MealPlanDto>> Put(MealPlanUpdateDto dto)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        string? userName = User.FindFirstValue(ClaimTypes.Name);
         if (userId == null)
         {
             // Early version of the software did not add the NameIdentifier claim, so we need to use the Name claim instead
             var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Name) ?? "");
             userId = user?.Id;
+            userName = user?.UserName;
         }
         
         // Update
         var updateRequest = _mapper.Map<SaveMealPlanRequest>(dto);
         updateRequest.UserId = userId ?? "";
+        updateRequest.UserName = userName ?? "";
 
         await _mediator.Send(updateRequest);
 

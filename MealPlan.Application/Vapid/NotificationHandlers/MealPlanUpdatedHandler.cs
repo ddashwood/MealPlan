@@ -1,6 +1,7 @@
 ﻿using MealPlan.Application.MealPlan.Notifications;
 using MealPlan.Database.Contexts;
 using MealPlan.Models.Configuration;
+using MealPlan.Models.Vapid;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,23 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
 
     public async Task Handle(MealPlanUpdatedNotification notification, CancellationToken cancellationToken)
     {
-        // To do - Add error handling, and tidy up
+        // Add the notification to a table in the database - soon we will update the rest of the logic
+        // to batch up the notifications so we don't spam users
+
+        var unprocessed = new UnprocessedNotification
+        {
+            AlteredDate = notification.Date,
+            UserId = notification.UserId,
+            Username = notification.UserName,
+            DateTime = DateTime.UtcNow
+        };
+
+        _context.UnprocessedNotifications.Add(unprocessed);
+        await _context.SaveChangesAsync();
+
+
+
+
         // Exclude notifications from same user
         // See https://github.com/MicrosoftEdge/pushnotifications-demo-aspnetcore/blob/main/PushnotificationsDemo/Services/PushService.cs
 

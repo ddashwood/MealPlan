@@ -39,7 +39,7 @@ public class SaveMealPlanHandler : IRequestHandler<SaveMealPlanRequest>
         _context.ChangeTracker.Clear();
 
 
-        var notification = new MealPlanUpdatedNotification { Date = request.Date, UserId = request.UserId };
+        var notification = new MealPlanUpdatedNotification { Date = request.Date, UserId = request.UserId, UserName = request.UserName };
         await _mediator.Publish(notification);
     }
 
