@@ -46,22 +46,21 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
 
     public async Task Handle(MealPlanUpdatedNotification notification, CancellationToken cancellationToken)
     {
-        // Add the notification to a table in the database - soon we will update the rest of the logic
-        // to batch up the notifications so we don't spam users
-
-        var unprocessed = new UnprocessedNotification
-        {
-            AlteredDate = notification.Date,
-            UserId = notification.UserId,
-            Username = notification.UserName,
-            DateTime = DateTime.UtcNow
-        };
-
         if (!_config.PreventNotifications)
         {
+            // Add the notification to a table in the database
+            var unprocessed = new UnprocessedNotification
+            {
+                AlteredDate = notification.Date,
+                UserId = notification.UserId,
+                Username = notification.UserName,
+                DateTime = DateTime.UtcNow
+            };
+            
             _context.UnprocessedNotifications.Add(unprocessed);
             await _context.SaveChangesAsync();
 
+            // Send a batch of notifications
             _sendNotificationsWithDebounce(this);
         }
     }
