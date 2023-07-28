@@ -65,11 +65,6 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
         }
     }
 
-    // N.b. - not scalable!
-    // If we ever have more than one server (unlikely!) then this will fire after the elapsed time
-    // has passed without changes on one server, even if changes have been made on another server.
-    // To fix - check for any notifications with a DateTime within the DelayBeforeSendingInSeconds
-    // from the current UTC DateTime.
     private async Task SendNotifications()
     {
         try
@@ -80,6 +75,19 @@ public class MealPlanUpdatedHandler : INotificationHandler<MealPlanUpdatedNotifi
             var context = _scope.ServiceProvider.GetRequiredService<MealPlanContext>();
 
             var notifications = await context.UnprocessedNotifications.ToListAsync();
+            if (!notifications.Any())
+            {
+                return;
+            }
+
+            var latestNotification = notifications.Select(n => n.DateTime).Max();
+            var timeSinceLastNotification = DateTime.UtcNow - latestNotification;
+            if ((int)timeSinceLastNotification.TotalSeconds < _config.DelayBeforeSendingInSeconds)
+            {
+                // This will only ever happen in a distrubuted environment (which is unlikely anyway),
+                // if another instance has handled updates more recently than this instance
+                return;
+            }
 
             var subscriptions = await context.VapidSubscriptions.ToListAsync();
             foreach (var subscription in subscriptions)
