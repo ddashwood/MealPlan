@@ -21,3 +21,10 @@ code {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* MDB.css adds an image to checkboxes, which is not needed */
+
+.form-check-input:checked[type="checkbox"] {
+  background-image: none;
+}

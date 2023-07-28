@@ -1,5 +1,0 @@
-/* MDB.css adds an image to checkboxes, which is not needed */
-
-.form-check-input:checked[type="checkbox"] {
-    background-image: none;
-}
