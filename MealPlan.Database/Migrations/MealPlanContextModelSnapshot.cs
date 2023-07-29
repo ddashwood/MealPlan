@@ -202,6 +202,60 @@ namespace MealPlan.Database.Migrations
                     b.ToTable("People");
                 });
 
+            modelBuilder.Entity("MealPlan.Models.Vapid.UnprocessedNotification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AlteredDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnprocessedNotifications");
+                });
+
+            modelBuilder.Entity("MealPlan.Models.Vapid.VapidSubscription", b =>
+                {
+                    b.Property<string>("Endpoint")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ExpirationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("KeysAuth")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KeysP256DH")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Endpoint");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("VapidSubscriptions");
+                });
+
             modelBuilder.Entity("MealPlanEntryPerson", b =>
                 {
                     b.Property<DateTime>("MealPlanEntriesDate")
@@ -336,6 +390,15 @@ namespace MealPlan.Database.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("MealPlan.Models.Vapid.VapidSubscription", b =>
+                {
+                    b.HasOne("MealPlan.Models.Identity.ApplicationUser", null)
+                        .WithMany("VapidSubscriptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MealPlanEntryPerson", b =>
                 {
                     b.HasOne("MealPlan.Models.MealPlanEntry", null)
@@ -400,6 +463,11 @@ namespace MealPlan.Database.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MealPlan.Models.Identity.ApplicationUser", b =>
+                {
+                    b.Navigation("VapidSubscriptions");
                 });
 #pragma warning restore 612, 618
         }

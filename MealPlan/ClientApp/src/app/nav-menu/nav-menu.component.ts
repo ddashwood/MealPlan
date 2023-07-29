@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { JWTTokenService } from '../services/jwt-token-service/jwttoken.service';
 import { Router } from '@angular/router';
+import { VapidService } from '../services/vapid-service/vapid.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  constructor(private authService: JWTTokenService, private router: Router) {
+  constructor(private authService: JWTTokenService, private router: Router, private vapid: VapidService) {
     this.userName = authService.getUserName();
     authService.updated$.subscribe(() => this.getUserDetails(authService));
   }
@@ -29,6 +30,10 @@ export class NavMenuComponent {
   logout() {
     this.authService.clearToken();
     this.router.navigate(["/"]);
+  }
+
+  subscribe() {
+    this.vapid.subscribe();
   }
 
   private getUserDetails(authService: JWTTokenService) {

@@ -32,6 +32,7 @@ internal class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
             var authClaims = new List<Claim>
                 {
                     new Claim(type:ClaimTypes.Name, value:user.UserName!),
+                    new Claim(type:ClaimTypes.NameIdentifier, value: user.Id),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 

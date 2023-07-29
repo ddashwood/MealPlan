@@ -15,4 +15,6 @@ public class SaveMealPlanRequest : IRequest
 
     public Guid LocationId { get; set; }
     public List<Guid> PeopleIds { get; set; } = new List<Guid>();
+    public string UserId { get; set; } = "";
+    public string UserName { get; set; } = "";
 }

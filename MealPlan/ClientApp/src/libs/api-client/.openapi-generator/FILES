@@ -6,11 +6,14 @@ api/identity.service.ts
 api/location.service.ts
 api/mealPlan.service.ts
 api/person.service.ts
+api/vapidPublicKey.service.ts
+api/vapidSubscription.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
 model/changePasswordDto.ts
+model/keys.ts
 model/locationDto.ts
 model/loginDto.ts
 model/mealPlanDto.ts
@@ -19,5 +22,6 @@ model/mealPlanPersonDto.ts
 model/mealPlanUpdateDto.ts
 model/models.ts
 model/personDto.ts
+model/subscriptionDto.ts
 param.ts
 variables.ts

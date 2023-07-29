@@ -25,5 +25,6 @@
 
 <mat-menu #dropdown="matMenu">
   <a [routerLinkActive]="['link-active']" mat-menu-item (click)="collapse()" [routerLink]="['/change-password']">Change Password</a>
+  <button mat-menu-item href="javascript:void(0);" (click)="subscribe(); collapse();">Get Notifications</button>
   <button mat-menu-item href="javascript:void(0);" (click)="logout(); collapse();">Logout {{userName}}</button>
 </mat-menu>
