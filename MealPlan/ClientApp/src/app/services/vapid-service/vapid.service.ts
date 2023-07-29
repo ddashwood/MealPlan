@@ -39,7 +39,7 @@ export class VapidService {
       },
 
       error: error => {
-        alert('Failed to get subscription key: ' + error);
+        alert('Failed to get subscription key: ' + error.message);
       }
     });
   }
