@@ -1,16 +1,5 @@
 <form [formGroup]="formGroup" (submit)="onSubmit()">
     <div class="container">
-        <div class="row">
-            <div class="col-4">
-            </div>
-            <div class="col-4">
-                <button type="submit" [disabled]="!formGroup.valid" class="btn btn-primary w-100" type="submit">Save</button>
-            </div>
-            <div class="col-4">
-                <button type="button" class="btn btn-primary w-100" (click)="onClose()">Cancel</button>
-            </div>
-        </div>
-
         <div class="pb-3">
             <div class="row">
                 <span class="fw-bold ps-0 pb-1">Location:</span>
@@ -84,7 +73,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row sticky" style="">
             <div class="col-4"></div>
             <div class="col-4">
                 <button type="submit" [disabled]="!formGroup.valid" class="btn btn-primary w-100" type="submit">Save</button>

@@ -3,3 +3,10 @@
 .form-check-input:checked[type="checkbox"] {
     background-image: none;
 }
+
+.sticky {
+    position: sticky;
+    bottom: 0;
+    background-color: inherit;
+    z-index: 1055;
+  }
