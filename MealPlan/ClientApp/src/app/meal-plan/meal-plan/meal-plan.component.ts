@@ -51,6 +51,10 @@ export class MealPlanComponent {
     this._modal.show();
   }
 
+  public onRefresh() {
+    this.mealPlanService.refresh();
+  }
+
   public onCloseEditor() {
     this._modal.hide();
   }

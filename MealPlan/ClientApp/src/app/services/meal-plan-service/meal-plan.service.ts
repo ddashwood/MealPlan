@@ -6,7 +6,6 @@ import { MealPlanService as MealPlanHttpService, MealPlanDto, MealPlanUpdateDto 
   providedIn: 'root'
 })
 export class MealPlanService {
-
   constructor(private http: MealPlanHttpService) {
     this._startDate = new Date();
     this._endDate = this.addDays(this._startDate, 60);
@@ -21,6 +20,11 @@ export class MealPlanService {
   private _mealPlanEntries: MealPlanDto[] = [];
   get mealPlanEntries() : MealPlanDto[] {
     return this._mealPlanEntries;
+  }
+
+  refresh() {
+    this.http.apiMealPlanGet(this.dateToString(this._startDate), this.dateToString(this._endDate))
+        .subscribe(data => this._mealPlanEntries = data);
   }
 
   public getMoreData() : void {
