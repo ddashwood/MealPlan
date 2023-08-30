@@ -1,42 +1,46 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { MealPlanDto, MealPlanUpdateDto } from 'src/libs/api-client';
 import { MealPlanEntryEditorComponent } from '../meal-plan-entry-editor/meal-plan-entry-editor.component';
 import { JWTTokenService } from '../../services/jwt-token-service/jwttoken.service';
 import { MealPlanService } from 'src/app/services/meal-plan-service/meal-plan.service';
+import { MealPlanListDatasource } from './meal-plan-list-datasource';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'meal-plan',
   templateUrl: './meal-plan.component.html',
-  styleUrls: ['./meal-plan.component.css']
+  styleUrls: ['./meal-plan.component.css'],
+  // every instance of this component will get its own instance of the MealPlanListDatasource
+  providers: [MealPlanListDatasource]
 })
-export class MealPlanComponent {
+export class MealPlanComponent implements OnInit {
+  entries$: Observable<MealPlanDto[]>;
   editingEntry?: MealPlanDto;
 
   private _modal: Modal = null!;
-  private _scrolling: boolean = false;
 
-  @ViewChild(MealPlanEntryEditorComponent) editor:MealPlanEntryEditorComponent = null!;
+  @ViewChild(MealPlanEntryEditorComponent) editor: MealPlanEntryEditorComponent = null!;
 
-  constructor (public mealPlanService : MealPlanService, private tokenService: JWTTokenService) { }
-
-  public onScroll() {
-    if(this._scrolling) {
-      return; // Don't scroll again if we're already scrolling
-    }
-
-    try
-    {
-      this._scrolling = true;
-      this.mealPlanService.getMoreData();
-    }
-    finally
-    {
-      this._scrolling = false;
-    }
+  constructor(
+    private mealPlanService: MealPlanService,
+    private mealPlanListDatasource: MealPlanListDatasource,
+    private tokenService: JWTTokenService,
+  ) {
+    this.entries$ = this.mealPlanListDatasource.data$;
   }
 
-  public canEdit() : boolean {
+  ngOnInit() {
+    // Can use the refresh as an Init.
+    this.mealPlanListDatasource.refresh();
+  }
+
+  public onScroll() {
+    // The exhaustMap in this function will handle ignoring too many scroll events for us.
+    this.mealPlanListDatasource.fetchNextPage();
+  }
+
+  public canEdit(): boolean {
     return this.tokenService.userCanEdit();
   }
 
@@ -52,7 +56,7 @@ export class MealPlanComponent {
   }
 
   public onRefresh() {
-    this.mealPlanService.refresh();
+    this.mealPlanListDatasource.refresh();
   }
 
   public onCloseEditor() {
@@ -60,6 +64,8 @@ export class MealPlanComponent {
   }
 
   public onSave(saveData: MealPlanUpdateDto) {
-    this.mealPlanService.save(saveData);
+    // MealPlanService doesn't do much anymore. I'm on the fence about whether this should go somewhere else.
+    // It might make sense to make the list datasource responsible for calling a save API also.
+    this.mealPlanService.save(saveData).subscribe(entry => this.mealPlanListDatasource.updateItem(entry));
   }
 }
