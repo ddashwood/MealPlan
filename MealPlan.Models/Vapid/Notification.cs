@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace PushnotificationsDemo.Models;
+namespace MealPlan.Models.Vapid;
 
 public class NotificationContainer
 {
     [JsonProperty("notification")]
-    public Notification Notification { get; set; }
+    public Notification Notification { get; set; } = null!;
 }
 
 /// <summary>
@@ -27,19 +27,19 @@ public class Notification
     public string Lang { get; set; } = "en";
 
     [JsonProperty("body")]
-    public string Body { get; set; }
+    public string Body { get; set; } = "";
 
     [JsonProperty("tag")]
-    public string Tag { get; set; }
+    public string Tag { get; set; } = "";
 
     [JsonProperty("image")]
-    public string Image { get; set; }
+    public string Image { get; set; } = "";
 
     [JsonProperty("icon")]
-    public string Icon { get; set; }
+    public string Icon { get; set; } = "";
 
     [JsonProperty("badge")]
-    public string Badge { get; set; }
+    public string Badge { get; set; } = "";
 
     [JsonProperty("timestamp")]
     public DateTime Timestamp { get; set; } = DateTime.Now;
@@ -58,10 +58,10 @@ public class NotificationAction
 {
 
     [JsonProperty("action")]
-    public string Action { get; set; }
+    public string Action { get; set; } = "";
 
     [JsonProperty("title")]
-    public string Title { get; set; }
+    public string Title { get; set; } = "";
 }
 
 public class NotificationTag
